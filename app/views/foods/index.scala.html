@@ -1,0 +1,15 @@
+@(foods: Seq[Food], user: User)
+
+@main(title = "Eat This Now!", user: User) {
+
+<h1>Food listing</h1>
+
+<a href="@routes.Application.logout()">Logout</a>
+
+<ul>
+@foods.map { food =>
+  <li>@food.name</li>
+}
+</ul>
+
+}
