@@ -4,7 +4,8 @@
 
 create table user (
   email                     varchar(255) not null primary key,
-  name                      varchar(255) not null,
+  firstName                      varchar(255) not null,
+  lastName                       varchar(255) not null,
   password                  varchar(255) not null
 );
 
@@ -12,8 +13,8 @@ create table food (
   id						bigint not null primary key,
   name						varchar(255) not null,
   eaten						boolean,
-  expiry					timestamp,
   owner						varchar(255) not null,
+  expiry					timestamp,
   foreign key(owner)	references user(email) on delete set null
 );
 

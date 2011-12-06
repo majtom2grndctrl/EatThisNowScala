@@ -6,15 +6,16 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class User(email: String, name: String, password: String)
+case class User(email: String, firstName: String, lastName: String, password: String)
 
 object User {
 
   val simple = {
     get[String]("user.email") ~/
-    get[String]("user.name") ~/
+    get[String]("user.firstName") ~/
+    get[String]("user.lastName") ~/
     get[String]("user.password") ^^ {
-      case email~name~password => User(email, name, password)
+      case email~firstName~lastName~password => User(email, firstName, lastName, password)
     }
   }
 
@@ -51,12 +52,13 @@ def findByEmail(email: String): Option[User] = {
       SQL(
         """
           insert into user values (
-            {email}, {name}, {password}
+            {email}, {firstName}, {lastName}, {password}
           )
         """
       ).on(
         'email -> user.email,
-        'name -> user.name,
+        'firstName -> user.firstName,
+        'lastName -> user.lastName,
         'password -> user.password
       ).executeUpdate()
       
