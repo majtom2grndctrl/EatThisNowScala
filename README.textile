@@ -1,0 +1,5 @@
+h1. Eat This Now! (Scala)
+
+Pragmatically, Eat This Now! is a dummy project I'm using to kick the tires on various web development frameworks.
+
+Functionally, it is an app that reminds you to eat leftovers or other food items before they go bad.
