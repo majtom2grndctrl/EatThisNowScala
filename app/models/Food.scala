@@ -36,20 +36,6 @@ object Food {
 		}
 	}
 
-	def sadacheTest(user: String) = {
-		val result = DB.withConnection { implicit connection =>
-					SQL(
-						"""
-						  select * from food
-						  where food.eaten = false and food.owner = {email}
-						"""
-					).on(
-						'email -> user
-					)()
-		}
-		println(result.toList)
-	}
-
   	def create(food: Food): Food = {
 	  DB.withConnection { implicit connection =>
 	    val id: Long = food.id.getOrElse {
@@ -74,7 +60,29 @@ object Food {
 	  }
 	}
 
+  	def markAsEaten(foodId: Long, eaten: Boolean) {
+  	  DB.withConnection { implicit connection =>
+  	    SQL("update food set eaten = {eaten} where id = {id}").on(
+  	      'id -> foodId,
+  	      'eaten -> eaten
+  	    ).executeUpdate()
+  	  }
+  	}
 
+
+  	def isOwner(food: Long, user: String): Boolean = {
+  	  DB.withConnection { implicit connection =>
+  	    SQL(
+  	      """
+  	        select count(food.id) = 1 from food
+  	        where food.owner = {email} and food.id = {food}
+  	      """
+  	    ).on(
+  	      'food -> food,
+  	      'email -> user
+  	    ).as(scalar[Boolean])
+  	  }
+  	}
 }
 
 

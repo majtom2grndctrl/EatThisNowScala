@@ -47,4 +47,13 @@ trait Secured {
   def IsAuthenticated(f: => String => Request[AnyContent] => Result) = Security.Authenticated(username, onUnauthorized) { user =>
     Action(request => f(user)(request))
   }
+
+  def IsOwnerOf(food: Long)(f: => String => Request[AnyContent] => Result) = IsAuthenticated { user => request =>
+    if(Food.isOwner(food, user)) {
+      f(user)(request)
+    } else {
+      Results.Forbidden
+    }
+  }
+
 }

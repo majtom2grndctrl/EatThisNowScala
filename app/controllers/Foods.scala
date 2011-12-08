@@ -29,9 +29,11 @@ object Foods extends Controller with Secured {
         )
       )
     }.getOrElse(Forbidden)
-    
-
-    
   }
 
+  def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
+    Food.markAsEaten(food, true: Boolean)
+    Ok
+    Redirect(routes.Foods.index)
+  }
 }

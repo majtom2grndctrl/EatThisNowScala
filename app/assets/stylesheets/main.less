@@ -1,24 +1,39 @@
 /*
 Table of Contents
 
-1.) Default element styles
-2.) Containers, columns, and rows
-3.) Accessibility-related rules
-4.) Header-related rules
-5.) Navigation
-    5.1) Header Main Navigation
-    5.2) Header Secondary Navigation
-    5.3) Footer Main Navigation
-6.) Content-related rules
-7.) Footer-related rules
+1.) Global variables
+2.) Default element styles
+3.) Containers, columns, and rows
+4.) Accessibility-related rules
+5.) Header-related rules
+6.) Navigation
+7.) Content-related rules
+8.) Footer-related rules
 i.) Utility classes
 */
 
-/* 1.) Default element styles
+/* 1.) Global variables and mixins
+-------------------------------------------------------------*/
+.globalBodyCopy {
+  line-height: 1.25em;
+}
+
+
+/* 2.) Default element styles
 -------------------------------------------------------------*/
 
 body {
-    font-size: .875em; /* 16px -> 14px */
+    font-size: 13 / 16em;
+/* A note on font sizes:
+  In most cases, font sizes will be denoted with the following format:
+  XX / YYem
+  This is done so that Less can calculate the font size in EMs, and
+  a development team can communicate with each other what the inherited
+  font size that this rule modified was. Effectively, it communicates the following:
+  
+  Was: 16px. Will be: @globalBodyFontSize
+
+*/
     color: #000; /**/
     font-family: Arial, Helvetica, sans-serif;
     margin: 0; /**/
@@ -40,21 +55,23 @@ abbr {
     border: none;
 }
 h1 {
-    font-size: 1.571em; /* 14px -> 22px */
+    font-size: 22 / 13em;
     color: #114; /**/
-    line-height: 1.273em; /* 22px -> 28px */
+    line-height: 28 / 22em;
 }
 h2 {
-    font-size: 1.286em; /* 14px -> 18px */
+    font-size: 18 / 13em;
     color: #114; /**/
-    line-height: 1.333em; /* 18px -> 24px */
+    line-height: 24 / 18em;
 }
 h3 {
-    font-size: 1.143em; /* 14px -> 16px */
+    font-size: 13 / 16em;
+    line-height: 16 / 21em;
     color: #114; /**/
 }
 p {
     margin: 1em 0;/**/
+    .globalBodyCopy
 }
 ul, ol {
     margin: .5em 0;/**/
@@ -62,4 +79,6 @@ ul, ol {
 li {
     margin: .5em 0;/**/
 }
-
+dd {
+  margin: .5em 0;
+}
