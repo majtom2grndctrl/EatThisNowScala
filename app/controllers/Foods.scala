@@ -8,32 +8,39 @@ import java.util.{Date}
 
 import anorm._
 
-import models._
 import views._
+import models._
 
 object Foods extends Controller with Secured {
 
-/*  def index = Action { request =>
-    Ok(
-        Food.sadacheTest(request.username.get)
+  val eatThisForm = Form(
+    of(Food.apply _,Food.unapply _)(
+      "foodId" -> of[Pk[Long]],
+      "foodName" -> of[String],
+      "foodOwner" -> of[String],
+      "foodIsEaten" -> of[Boolean],
+      "foodExpiry" -> of [Option[Date]]
     )
-  }
-*/
+  )
+
   def index = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
 //      Food.sadacheTest(username)
       Ok(
         html.foods.index(
           Food.findFoodFor(username),
-          user
+          user,
+          eatThisForm
         )
       )
     }.getOrElse(Forbidden)
   }
 
   def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
+  	println("markAsEaten " + food)
     Food.markAsEaten(food, true: Boolean)
     Ok
     Redirect(routes.Foods.index)
   }
+
 }

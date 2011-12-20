@@ -1,5 +1,6 @@
 import sbt._
 import Keys._
+
 import PlayProject._
 
 object ApplicationBuild extends Build {
@@ -12,7 +13,8 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies).settings(defaultScalaSettings:_*).settings(
-      // Add your own project settings here      
+      PlayProject.minify := true
+        // Add your own project settings here      
     )
 
 }
