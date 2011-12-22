@@ -1,14 +1,15 @@
-@(foods: Seq[Food], user: User, eatThisForm: Form[models.Food])
+@(foods: Seq[Food], user: User)
 @main(title = "Eat This Now!", user: User) {
 <h1>Welcome, @user.firstName!</h1>
 
 <a href="@routes.Application.logout()">Logout</a>
 <dl>
 @foods.map { food =>
-  @form(routes.Foods.markAsEaten()) {
-    <dt>@food.name</dt>
-    <dd>Eat this by @food.expiry.map(_.format("MMMM dd, yyyy")) <a href="#" onClick="eatThisNow(@food.id.get)">Nom this</a><input type="hidden" id="foodId" name="foodId" value="@food.id.get" /> <input type="submit" value="Nom this" /></dd>
-  }
+  <dt>@food.name</dt>
+  <dd>
+    Eat this by @food.expiry.map(_.format("MMMM dd, yyyy")) <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
+
+  </dd>
 }
 </dl>
 }

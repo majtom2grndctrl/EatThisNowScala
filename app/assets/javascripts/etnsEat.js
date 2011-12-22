@@ -1,9 +1,8 @@
 function eatThisNow(foodId) {
-  $.ajax({
+  jquery.ajax({
     type: "POST",
-    url: "/nom",
-    data: "foodId=1"
-  }).done(alert("Save is done"));
+    url: "/nom/" + {foodId: foodId}
+  })
 
   alert("Food ID is " + foodId);
 }
