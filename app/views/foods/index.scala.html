@@ -1,4 +1,7 @@
 @(foods: Seq[Food], user: User)
+@import java.util.Date;
+@import java.text.DateFormat;
+@import java.text.SimpleDateFormat;
 @main(title = "Eat This Now!", user: User) {
 <h1>Welcome, @user.firstName!</h1>
 
@@ -7,7 +10,8 @@
 @foods.map { food =>
   <dt>@food.name</dt>
   <dd>
-    Eat this by @food.expiry.map(_.format("MMMM dd, yyyy")) <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
+    Eat this by @food.expiry.format("MMMM dd, yyyy")
+    <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
 
   </dd>
 }

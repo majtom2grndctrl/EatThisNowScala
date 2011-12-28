@@ -29,9 +29,9 @@ object InitialData {
 			).foreach(User.create)
 
 			Seq(
-				Food(Id(1), "Turkey", false, "dhiester@example.com", Some(date("2011-12-20"))),
-				Food(Id(2), "Ham", false, "wbuccicone@example.com", Some(date("2011-12-22"))),
-				Food(Id(3), "Pizza", false, "dhiester@example.com", Some(date("2011-12-15")))
+				Food(Id(1), "Turkey", false, "dhiester@example.com", date("2011-12-20")),
+				Food(Id(2), "Ham", false, "wbuccicone@example.com", date("2011-12-22")),
+				Food(Id(3), "Pizza", false, "dhiester@example.com", date("2011-12-15"))
 			).foreach(Food.create)
 		}
 

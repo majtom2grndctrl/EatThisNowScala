@@ -3,7 +3,7 @@ package controllers
 import play.api._
 import play.api.mvc._
 import play.api.data._
-import play.api.data.format.Formats._
+import play.api.data.validation.Constraints._
 
 import java.util.{Date}
 
@@ -13,6 +13,16 @@ import views._
 import models._
 
 object Foods extends Controller with Secured {
+
+  val foodForm = Form(
+    of(Food.apply _, Food.unapply _)(
+      "id" -> ignored(NotAssigned),
+      "name" -> requiredText,
+      "eaten" -> boolean,
+      "owner" -> requiredText,
+      "expiry" -> date("MM-dd-yyyy")
+    )
+  )
 
   def index = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>

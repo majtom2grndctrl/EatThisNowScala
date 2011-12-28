@@ -8,7 +8,7 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: String, expiry: Option[Date])
+case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: String, expiry: Date)
 
 object Food {
   val simple = {
@@ -16,7 +16,7 @@ object Food {
     get[String]("food.name") ~/
     get[Boolean]("food.eaten") ~/
     get[String]("food.owner") ~/
-    get[Option[Date]]("food.expiry") ^^ {
+    get[Date]("food.expiry") ^^ {
       case id~name~eaten~owner~expiry => Food(
         id, name, eaten, owner, expiry
       )
