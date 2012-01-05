@@ -11,10 +11,10 @@ case class User(email: String, firstName: String, lastName: String, password: St
 object User {
 
   val simple = {
-    get[String]("user.email") ~/
-    get[String]("user.firstName") ~/
-    get[String]("user.lastName") ~/
-    get[String]("user.password") ^^ {
+    get[String]("user.email") ~
+    get[String]("user.firstName") ~
+    get[String]("user.lastName") ~
+    get[String]("user.password") map {
       case email~firstName~lastName~password => User(email, firstName, lastName, password)
     }
   }
@@ -23,7 +23,7 @@ def findByEmail(email: String): Option[User] = {
     DB.withConnection { implicit connection =>
       SQL("select * from user where email = {email}").on(
         'email -> email
-      ).as(User.simple ?)
+      ).as(User.simple.singleOpt)
     }
   }
 
@@ -43,7 +43,7 @@ def findByEmail(email: String): Option[User] = {
       ).on(
         'email -> email,
         'password -> password
-      ).as(User.simple ?)
+      ).as(User.simple.singleOpt)
     }
   }
 

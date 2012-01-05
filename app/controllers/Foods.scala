@@ -30,7 +30,8 @@ object Foods extends Controller with Secured {
       Ok(
         html.foods.index(
           Food.findFoodFor(username),
-          user
+          user,
+          foodForm
         )
       )
     }.getOrElse(Forbidden)
@@ -42,5 +43,15 @@ object Foods extends Controller with Secured {
     Ok
     Redirect(routes.Foods.index)
   }
-
+/*
+  def save = Action { implicit request =>
+    foodForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(html.foods.index(formWithErrors)),
+      food => {
+        Food.insert(food)
+        Home.flashing("success" -> "Food %s has been created".format(food.name))
+      }
+    )
+  }
+*/
 }

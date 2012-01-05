@@ -3,7 +3,8 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Foods.index
+GET     /                                    controllers.Foods.index
+#POST    /foods                           controllers.Foods.save
 
 # Authentication
 GET     /login                              controllers.Application.login

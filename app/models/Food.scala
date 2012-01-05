@@ -12,11 +12,11 @@ case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: String, expi
 
 object Food {
   val simple = {
-    get[Pk[Long]]("food.id") ~/
-    get[String]("food.name") ~/
-    get[Boolean]("food.eaten") ~/
-    get[String]("food.owner") ~/
-    get[Date]("food.expiry") ^^ {
+    get[Pk[Long]]("food.id") ~
+    get[String]("food.name") ~
+    get[Boolean]("food.eaten") ~
+    get[String]("food.owner") ~
+    get[Date]("food.expiry") map {
       case id~name~eaten~owner~expiry => Food(
         id, name, eaten, owner, expiry
       )
@@ -39,7 +39,7 @@ object Food {
   	def create(food: Food): Food = {
 	  DB.withConnection { implicit connection =>
 	    val id: Long = food.id.getOrElse {
-	      SQL("select next value for food_seq").as(scalar[Long])
+	      SQL("select next value for food_seq").as(scalar[Long].single)
 	    }
 	  SQL(
 	      """
@@ -80,7 +80,7 @@ object Food {
   	    ).on(
   	      'food -> food,
   	      'email -> user
-  	    ).as(scalar[Boolean])
+  	    ).as(scalar[Boolean].single)
   	  }
   	}
 }
