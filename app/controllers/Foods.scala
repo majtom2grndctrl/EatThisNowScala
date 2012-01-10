@@ -17,9 +17,9 @@ object Foods extends Controller with Secured {
   val foodForm = Form(
     of(Food.apply _, Food.unapply _)(
       "id" -> ignored(NotAssigned),
-      "name" -> requiredText,
+      "name" -> nonEmptyText,
       "eaten" -> boolean,
-      "owner" -> requiredText,
+      "owner" -> nonEmptyText,
       "expiry" -> date("MM-dd-yyyy")
     )
   )
