@@ -4,10 +4,10 @@
 
 # Home page
 GET     /                                    controllers.Foods.index
-POST    /foods                           controllers.Foods.save
 
 #Form for new food item
 GET     /create                             controllers.Foods.create
+POST    /create                             controllers.Foods.save
 
 # Authentication
 GET     /login                              controllers.Application.login
