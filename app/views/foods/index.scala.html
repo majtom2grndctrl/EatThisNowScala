@@ -1,4 +1,4 @@
-@(foods: Seq[Food], user: User, foodForm: Form[Food])
+@(foods: Seq[Food], user: User)
 @import helper._
 @main(title = "Eat This Now!", user: User) {
   <h1>Welcome, @user.firstName!</h1>
@@ -14,12 +14,4 @@
     </dd>
   }
   </dl>
-@*
-  @form(routes.Foods.save()) {
-    @inputText(foodForm("name"), 'label -> "Food Name")
-    @checkbox(field = eaten("true"))
-    @input(foodForm("owner"), 'label -> "User Email", 'value=(user.email))
-    @input(foodForm("expiry"), 'label -> "Eat this by:")
-  }
-*@
 }

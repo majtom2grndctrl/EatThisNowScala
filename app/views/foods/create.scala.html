@@ -1,0 +1,12 @@
+@(foodForm: Form[Food], user: User)
+
+@import helper._
+
+@main(title = "Eat This Now!", user: User) {
+  @form(routes.Foods.save()) {
+    @inputText(foodForm("name"), 'label -> "Food Name")
+    @checkbox(field = foodForm("eaten"))
+    @inputText(field = foodForm("owner"), 'label -> "User Email")
+    @inputDate(foodForm("expiry"), 'label -> "Eat this by:")
+  }
+}
