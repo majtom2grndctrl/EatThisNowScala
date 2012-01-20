@@ -4,10 +4,10 @@
 
 @main(title = "Eat This Now!", user: User) {
   @form(routes.Foods.save()) {
-    @inputText(foodForm("name"), 'label -> "Food Name")
+    @inputText(foodForm("name"), '_label -> "Food Name")
     @checkbox(field = foodForm("eaten"))
-    @inputText(field = foodForm("owner"), 'label -> "User Email")
-    @inputDate(foodForm("expiry"), 'label -> "Eat this by:")
+    @inputText(field = foodForm("owner"), '_label -> "User Email")
+    @inputDate(foodForm("expiry"), '_label -> "Eat this by:")
     <input type="Submit" value="Remind me to eat this!" />
   }
 }

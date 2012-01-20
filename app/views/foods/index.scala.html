@@ -3,7 +3,10 @@
 @main(title = "Eat This Now!", user: User) {
   <h1>Welcome, @user.firstName!</h1>
 
-  <a href="@routes.Application.logout()">Logout</a>
+  <dl class="nav">
+    <dt>Main Navigation</dt>
+    <dd><a href="@routes.Foods.create()">Add new food!</a></dd>
+    <dd><a href="@routes.Application.logout()">Logout</a></dd>
   <dl>
   @foods.map { food =>
     <dt>@food.name</dt>
