@@ -3,6 +3,7 @@ package controllers
 import play.api._
 import play.api.mvc._
 import play.api.data._
+import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
 import java.util.{Date}
@@ -17,13 +18,13 @@ object Foods extends Controller with Secured {
   val Home = Redirect(routes.Foods.index())
 
   val foodForm = Form(
-    of(Food.apply _, Food.unapply _)(
-      "id" -> ignored(NotAssigned),
+    mapping(
+      "id" -> ignored(NotAssigned:Pk[Long]),
       "name" -> nonEmptyText,
       "eaten" -> boolean,
       "owner" -> nonEmptyText,
       "expiry" -> date("MM-dd-yyyy")
-    )
+    )(Food.apply)(Food.unapply)
   )
 
   def index = IsAuthenticated { username => _ =>
