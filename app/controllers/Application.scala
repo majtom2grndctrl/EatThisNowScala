@@ -37,6 +37,16 @@ object Application extends Controller {
       "success" -> "You've been logged out"
     )
   }
+/*
+  def javascriptRoutes = Action {
+    import routes.javascript._
+    Ok(
+      Routes.javascriptRouter("jsRoutes")(
+        
+      )
+    )
+  }
+*/
 }
 
 trait Secured {

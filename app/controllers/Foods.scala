@@ -50,6 +50,17 @@ object Foods extends Controller with Secured {
   	}.getOrElse(Forbidden)
   }
 
+  def createAsync = IsAuthenticated { username => _ =>
+  	User.findByEmail(username).map { user =>
+  		Ok(
+  		    html.foods.createAsync(
+  		        foodForm,
+  		        user
+  		    )
+  		)
+  	}.getOrElse(Forbidden)
+  }
+
   def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
   	println("markAsEaten " + food)
     Food.markAsEaten(food, true: Boolean)
@@ -68,6 +79,19 @@ object Foods extends Controller with Secured {
 	    )
 
     }.getOrElse(Forbidden)
-
   }
+
+  def saveAsync = IsAuthenticated { username => implicit request =>
+    User.findByEmail(username).map { user =>
+	    foodForm.bindFromRequest.fold(
+	      formWithErrors => BadRequest(html.foods.create(formWithErrors, user)),
+	      food => {
+	        Food.create(food)
+	        Home.flashing("success" -> "Food %s has been created".format(food.name))
+	      }
+	    )
+
+    }.getOrElse(Forbidden)
+  }
+
 }

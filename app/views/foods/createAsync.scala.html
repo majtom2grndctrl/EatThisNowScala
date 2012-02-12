@@ -1,0 +1,11 @@
+@(foodForm: Form[Food], user: User)
+@import helper._
+
+  <h2 class="etnSubheader">Add new food</h2>
+  @form(routes.Foods.save()) {
+    @inputText(foodForm("name"), '_label -> "Food Name")
+    @checkbox(field = foodForm("eaten"))
+    @inputText(field = foodForm("owner"), '_label -> "User Email")
+    @inputDate(foodForm("expiry"), '_label -> "Eat this by:")
+    <input type="Submit" value="Remind me to eat this!" />
+  }

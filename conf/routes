@@ -9,6 +9,8 @@ GET     /                                    controllers.Foods.index
 GET     /create                             controllers.Foods.create
 POST    /create                             controllers.Foods.save
 
+GET     /createAsync                        controllers.Foods.createAsync
+
 # Authentication
 GET     /login                              controllers.Application.login
 POST    /login                              controllers.Application.authenticate

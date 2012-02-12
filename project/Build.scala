@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     )
 
     val main = PlayProject(appName, appVersion, appDependencies).settings(defaultScalaSettings:_*).settings(
-      PlayProject.minify := true
+//      PlayProject.minify := true
         // Add your own project settings here      
     )
 
