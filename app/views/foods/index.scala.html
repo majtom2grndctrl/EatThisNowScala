@@ -1,34 +1,40 @@
 @(foods: Seq[Food], user: User)
 @import helper._
 @main(title = "Eat This Now!", user: User) {
-  <h1>Eat this food, @user.firstName!</h1>
 
-  <dl class="nav">
-    <dt>Main Navigation</dt>
-    <dd><a href="@routes.Foods.create()">Add new food!</a></dd>
-    <dd><a href="@routes.Application.logout()">Logout</a></dd>
-  <dl>
-  @foods.map { food =>
-    <dt>@food.name</dt>
-    <dd>
-      Eat this by @food.expiry.format("MMMM dd, yyyy")
-      <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
+  <h1>Welcome, @user.firstName!</h1>
+
+  <section class="etnAddFoodContainer">
+    <div id="circleG">
+    <div id="circleG_1" class="circleG">
+    </div>
+    <div id="circleG_2" class="circleG">
+    </div>
+    <div id="circleG_3" class="circleG">
+    </div>
+    </div>
+    <button id="etnButtonAddFood">Add food</button>
   
-    </dd>
-  }
-  </dl>
+    <div id="etnAddFoodContainer"></div>
+  </section>
 
-  <div id="circleG">
-  <div id="circleG_1" class="circleG">
-  </div>
-  <div id="circleG_2" class="circleG">
-  </div>
-  <div id="circleG_3" class="circleG">
-  </div>
-  </div>
-  <button id="etnButtonAddFood">Add food</button>
-
-  <div id="etnAddFoodContainer"></div>
+  <section class="etnContent">
+    <h1>Eat this food!</h1>
+  
+    <dl class="nav">
+      <dt>Main Navigation</dt>
+      <dd><a href="@routes.Application.logout()">Logout</a></dd>
+    <dl>
+    @foods.map { food =>
+      <dt>@food.name</dt>
+      <dd>
+        Eat this by @food.expiry.format("MMMM dd, yyyy")
+        <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
+    
+      </dd>
+    }
+    </dl>
+  </section>
 
 
 
