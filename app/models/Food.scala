@@ -29,6 +29,7 @@ object Food {
 				"""
 				  select * from food
 				  where food.eaten = false and food.owner = {email}
+				  order by 5
 				"""
 			).on(
 				'email -> user
