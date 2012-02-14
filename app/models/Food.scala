@@ -84,6 +84,19 @@ object Food {
   	    ).as(scalar[Boolean].single)
   	  }
   	}
+
+
+
+//Used for Specs testing
+  	def findById(foodId: Long): Food = {
+  	  DB.withConnection { implicit connection =>
+  	    SQL("select * from food where food.id = {foodId}").on(
+  	      'foodId-> foodId
+  	    ).as(Food.simple.single)
+  	  }
+  	}
+
+
 }
 
 
