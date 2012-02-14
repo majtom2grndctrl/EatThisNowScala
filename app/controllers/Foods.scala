@@ -32,30 +32,31 @@ object Foods extends Controller with Secured {
 //      Food.sadacheTest(username)
       Ok(
         html.foods.index(
-          Food.findFoodFor(username),
-          user
+          user,
+          foodForm
         )
       )
     }.getOrElse(Forbidden)
   }
 
+  def loadFood = IsAuthenticated { username => _ =>
+    User.findByEmail(username).map { user =>
+      Ok(
+	    html.foods.load(
+	      Food.findFoodFor(username),
+	      user
+	    )
+      )
+    }.getOrElse(Forbidden)
+  }
+
+  //Not really used right now, might be used later.
   def create = IsAuthenticated { username => _ =>
   	User.findByEmail(username).map { user =>
   		Ok(
   		    html.foods.create(
-  		        foodForm,
-  		        user
-  		    )
-  		)
-  	}.getOrElse(Forbidden)
-  }
-
-  def createAsync = IsAuthenticated { username => _ =>
-  	User.findByEmail(username).map { user =>
-  		Ok(
-  		    html.foods.createAsync(
-  		        foodForm,
-  		        user
+  		      foodForm,
+  		      user
   		    )
   		)
   	}.getOrElse(Forbidden)
@@ -69,19 +70,6 @@ object Foods extends Controller with Secured {
   }
 
   def save = IsAuthenticated { username => implicit request =>
-    User.findByEmail(username).map { user =>
-	    foodForm.bindFromRequest.fold(
-	      formWithErrors => BadRequest(html.foods.create(formWithErrors, user)),
-	      food => {
-	        Food.create(food)
-	        Home.flashing("success" -> "Food %s has been created".format(food.name))
-	      }
-	    )
-
-    }.getOrElse(Forbidden)
-  }
-
-  def saveAsync = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
 	    foodForm.bindFromRequest.fold(
 	      formWithErrors => BadRequest(html.foods.create(formWithErrors, user)),

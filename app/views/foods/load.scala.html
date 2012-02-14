@@ -1,0 +1,12 @@
+@(foods: Seq[Food], user: User)
+
+    <dl>
+    @foods.map { food =>
+      <dt>@food.name</dt>
+      <dd>
+        Eat this by @food.expiry.format("MMMM dd, yyyy")
+        <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
+    
+      </dd>
+    }
+    </dl>

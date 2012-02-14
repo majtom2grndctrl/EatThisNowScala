@@ -1,10 +1,31 @@
-@(foods: Seq[Food], user: User)
+@(user: User, foodForm: Form[Food])
 @import helper._
 @main(title = "Eat This Now!", user: User) {
 
   <h1>Welcome, @user.firstName!</h1>
 
   <section class="etnAddFoodContainer">
+    <button id="etnButtonAddFood">Add food</button>
+  
+    <div id="etnAddFoodContainer">
+      @form(routes.Foods.save()) {
+        @inputText(foodForm("name"), '_label -> "Food Name")
+        @checkbox(field = foodForm("eaten"))
+        @inputText(field = foodForm("owner"), '_label -> "User Email")
+        @inputDate(foodForm("expiry"), '_label -> "Eat this by:")
+        <input type="Submit" value="Remind me to eat this!" />
+      }
+    </div>
+  </section>
+
+  <section class="etnContent">
+  
+    <dl class="nav">
+      <dt>Main Navigation</dt>
+      <dd><a href="@routes.Application.logout()">Logout</a></dd>
+
+    <h1>Eat this food!</h1>
+
     <div id="circleG">
     <div id="circleG_1" class="circleG">
     </div>
@@ -13,27 +34,9 @@
     <div id="circleG_3" class="circleG">
     </div>
     </div>
-    <button id="etnButtonAddFood">Add food</button>
-  
-    <div id="etnAddFoodContainer"></div>
-  </section>
 
-  <section class="etnContent">
-    <h1>Eat this food!</h1>
-  
-    <dl class="nav">
-      <dt>Main Navigation</dt>
-      <dd><a href="@routes.Application.logout()">Logout</a></dd>
-    <dl>
-    @foods.map { food =>
-      <dt>@food.name</dt>
-      <dd>
-        Eat this by @food.expiry.format("MMMM dd, yyyy")
-        <a href="@routes.Foods.markAsEaten(food.id.get)">Nom this</a>
-    
-      </dd>
-    }
-    </dl>
+    <div id="etnLoadFoodContainer"></div>
+
   </section>
 
 
