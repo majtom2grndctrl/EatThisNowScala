@@ -1,0 +1,11 @@
+@(accountForm: Form[(String, String)], user: User)
+@import helper._
+@main(title = "Manage your account - Eat This Now!", user: User) {
+
+<div>
+@inputPassword(field = accountForm("password1"))
+</div>
+<div>
+@inputPassword(field = accountForm("password2"))
+</div>
+}
