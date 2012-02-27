@@ -12,6 +12,7 @@
         <h1 class="etnHeaderLogo">
           <a class="etnHeaderLogoLink" href="@routes.Foods.index()">Eat This Now!</a>
         </h1>
+        <a href="@routes.Account.manage()" class="etnHeaderAccountLink">@user.firstName @user.lastName</a>
       </section>
       <section class="etnRowMain">
         @content
