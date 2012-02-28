@@ -39,11 +39,9 @@ object Account extends Controller with Secured {
 /*
   def update = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
-      Form(
-        "email" -> nonEmptyText
-      ).bindFromRequest.fold(
+      accountForm.bindFromRequest.fold(
         errors => BadRequest,
-        Ok(html.account.summary(email, user))
+        Ok(html.account.summary(email, main, confirm, user))
       )
     }
   }
