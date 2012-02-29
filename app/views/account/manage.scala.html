@@ -1,0 +1,34 @@
+@(accountForm: Form[(String, (String, String))], user: User)
+@import helper._
+@main(title = "Manage your account - Eat This Now!", user: User) {
+
+  <h2>Manage your account</h2>
+
+  <p>(doesn't actually do anything yet)</p>  
+  <div>
+  @form(action = routes.Account.update) {
+    @inputText(
+      field = accountForm("email"),
+      '_label -> "Email Address",
+      '_error -> accountForm.globalError
+    )
+    </div>
+    
+    <div>
+    @inputPassword(
+      field = accountForm("password.main"),
+      '_label -> "Password"
+    )
+    </div>
+    
+    <div>
+    @inputPassword(
+      field = accountForm("password.confirm"),
+      '_label -> "Repeat Password",
+      '_error -> accountForm.error("password")
+    )
+    </div>
+    
+    <input type="submit" value="Save changes" />
+  }
+}
