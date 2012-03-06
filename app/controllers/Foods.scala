@@ -27,6 +27,13 @@ object Foods extends Controller with Secured {
     )(Food.apply)(Food.unapply)
   )
 
+  val newFoodForm = Form(
+    tuple(
+      "name" -> nonEmptyText,
+      "expiry" -> text.verifying(pattern("""^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r))
+    )
+  )
+
   def index = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
 //      Food.sadacheTest(username)
@@ -62,6 +69,17 @@ object Foods extends Controller with Secured {
   	}.getOrElse(Forbidden)
   }
 
+  def createFood = IsAuthenticated { username => _ =>
+    User.findByEmail(username).map { user =>
+      Ok(
+        html.foods.createFood(
+          newFoodForm,
+          user
+        )
+      )
+    }.getOrElse(Forbidden)
+  }
+
   def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
   	println("markAsEaten " + food)
     Food.markAsEaten(food, true: Boolean)
@@ -79,6 +97,19 @@ object Foods extends Controller with Secured {
 	      }
 	    )
 
+    }.getOrElse(Forbidden)
+  }
+
+  def saveFood = IsAuthenticated { username => implicit request =>
+    User.findByEmail(username).map { user =>
+      
+      newFoodForm.bindFromRequest.fold(
+        errors => BadRequest(html.foods.createFood(errors, user)),
+        {case (name, expiry) => 
+          
+          Ok(controllers.Foods.createFood(food))
+        }
+      )
     }.getOrElse(Forbidden)
   }
 
