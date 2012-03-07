@@ -1,4 +1,4 @@
-@(user: User, foodForm: Form[Food])
+@(user: User, foodForm: Form[(String, java.util.Date)])
 @import helper._
 @main(title = "Eat This Now!", user: User) {
 
@@ -6,10 +6,8 @@
     <button id="etnButtonAddFood">Add food</button>
   
     <div id="etnAddFoodContainer">
-      @form(routes.Foods.save()) {
+      @form(routes.Foods.saveFood()) {
         @inputText(foodForm("name"), '_label -> "Food Name")
-        @checkbox(field = foodForm("eaten"))
-        @inputText(field = foodForm("owner"), '_label -> "User Email")
         @inputDate(foodForm("expiry"), '_label -> "Eat this by:")
         <input type="Submit" value="Remind me to eat this!" />
       }
@@ -22,16 +20,9 @@
       <dt>Main Navigation</dt>
       <dd><a href="@routes.Application.logout()">Logout</a></dd>
 
-    <h1>Eat this food!</h1>
+    @views.html.layout.heading("Eat this food!")
 
-    <div id="circleG">
-    <div id="circleG_1" class="circleG">
-    </div>
-    <div id="circleG_2" class="circleG">
-    </div>
-    <div id="circleG_3" class="circleG">
-    </div>
-    </div>
+    @views.html.layout.loadingAnimation()
 
     <div id="etnLoadFoodContainer"></div>
 

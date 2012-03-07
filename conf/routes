@@ -7,7 +7,7 @@ GET     /                                   controllers.Foods.index
 
 #Form for new food item
 GET     /create                             controllers.Foods.createFood
-POST    /create                             controllers.Foods.save
+POST    /create                             controllers.Foods.saveFood
 
 GET     /loadFood                           controllers.Foods.loadFood
 

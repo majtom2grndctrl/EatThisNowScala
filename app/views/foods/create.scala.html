@@ -1,12 +1,11 @@
-@(foodForm: Form[Food], user: User)
+@(foodForm: Form[(String, java.util.Date)], user: User)
 
 @import helper._
 
 @main(title = "Eat This Now!", user: User) {
-  @form(routes.Foods.save()) {
+
+  @form(routes.Foods.saveFood()) {
     @inputText(foodForm("name"), '_label -> "Food Name")
-    @checkbox(field = foodForm("eaten"))
-    @inputText(field = foodForm("owner"), '_label -> "User Email")
     @inputDate(foodForm("expiry"), '_label -> "Eat this by:")
     <input type="Submit" value="Remind me to eat this!" />
   }

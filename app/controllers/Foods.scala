@@ -41,7 +41,7 @@ object Foods extends Controller with Secured {
       Ok(
         html.foods.index(
           user,
-          foodForm
+          newFoodForm
         )
       )
     }.getOrElse(Forbidden)
@@ -58,22 +58,10 @@ object Foods extends Controller with Secured {
     }.getOrElse(Forbidden)
   }
 
-  //Not really used right now, might be used later.
-/*  def create = IsAuthenticated { username => _ =>
-  	User.findByEmail(username).map { user =>
-  		Ok(
-  		    html.foods.createFood(
-  		      foodForm,
-  		      user
-  		    )
-  		)
-  	}.getOrElse(Forbidden)
-  }
-*/
   def createFood = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
       Ok(
-        html.foods.createFood(
+        html.foods.create(
           newFoodForm,
           user
         )
@@ -91,7 +79,7 @@ object Foods extends Controller with Secured {
   def save = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
 	    foodForm.bindFromRequest.fold(
-	      formWithErrors => BadRequest(html.foods.create(formWithErrors, user)),
+	      formWithErrors => BadRequest,
 	      food => {
 	        Food.create(food)
 	        Home.flashing("success" -> "Food %s has been created".format(food.name))
@@ -105,12 +93,13 @@ object Foods extends Controller with Secured {
     User.findByEmail(username).map { user =>
       
       newFoodForm.bindFromRequest.fold(
-        errors => BadRequest(html.foods.createFood(errors, user)),
+        errors => BadRequest(html.foods.create(errors, user)),
         {case (name, expiry) => 
           val food = Food.create(
-            Food(NotAssigned, name, false, user.email, expiry.toDate())
+            Food(NotAssigned, name, false, user.email, expiry)
           )
-          Ok(controllers.Foods.createFood(food))
+          Ok
+          Redirect(routes.Foods.index)
         }
       )
     }.getOrElse(Forbidden)
