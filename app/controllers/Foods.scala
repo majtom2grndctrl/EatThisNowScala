@@ -30,7 +30,8 @@ object Foods extends Controller with Secured {
   val newFoodForm = Form(
     tuple(
       "name" -> nonEmptyText,
-      "expiry" -> text.verifying(pattern("""^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r))
+//      "expiry" -> text.verifying(pattern("""^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r))
+      "expiry" -> date("MM-dd-yyyy")
     )
   )
 
@@ -58,17 +59,17 @@ object Foods extends Controller with Secured {
   }
 
   //Not really used right now, might be used later.
-  def create = IsAuthenticated { username => _ =>
+/*  def create = IsAuthenticated { username => _ =>
   	User.findByEmail(username).map { user =>
   		Ok(
-  		    html.foods.create(
+  		    html.foods.createFood(
   		      foodForm,
   		      user
   		    )
   		)
   	}.getOrElse(Forbidden)
   }
-
+*/
   def createFood = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
       Ok(
@@ -106,7 +107,9 @@ object Foods extends Controller with Secured {
       newFoodForm.bindFromRequest.fold(
         errors => BadRequest(html.foods.createFood(errors, user)),
         {case (name, expiry) => 
-          
+          val food = Food.create(
+            Food(NotAssigned, name, false, user.email, expiry.toDate())
+          )
           Ok(controllers.Foods.createFood(food))
         }
       )
