@@ -23,7 +23,7 @@ object Foods extends Controller with Secured {
       "name" -> nonEmptyText,
       "eaten" -> boolean,
       "owner" -> nonEmptyText,
-      "expiry" -> date("MM-dd-yyyy")
+      "expiry" -> date("MM/dd/yyyy")
     )(Food.apply)(Food.unapply)
   )
 
@@ -31,7 +31,7 @@ object Foods extends Controller with Secured {
     tuple(
       "name" -> nonEmptyText,
 //      "expiry" -> text.verifying(pattern("""^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r))
-      "expiry" -> date("MM-dd-yyyy")
+      "expiry" -> date("MM/dd/yyyy")
     )
   )
 
