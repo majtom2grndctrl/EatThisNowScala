@@ -7,18 +7,17 @@
   
     <div id="etnAddFoodContainer">
       @form(routes.Foods.saveFood()) {
-  @form(routes.Foods.saveFood()) {
-    @inputText(
-      foodForm("name"),
-      '_label -> "Food Name",
-      '_error -> foodForm("name").error.map(_.withMessage("Hey! I can't remind you to eat this if you don't tell me what to call it!"))
-    )
-    @inputDate(
-      foodForm("expiry"),
-      '_label -> "Eat this by:",
-      '_error -> foodForm("expiry").error.map(_.withMessage("Please tell me when you think this food will go bad, so I can remind you to eat it!"))
-    )
-        <input type="Submit" value="Remind me to eat this!" />
+        @inputText(
+          foodForm("name"),
+          '_label -> "Food Name",
+          '_error -> foodForm("name").error.map(_.withMessage("Hey! I can't remind you to eat this if you don't tell me what to call it!"))
+        )
+        @inputDate(
+          foodForm("expiry"),
+          '_label -> "Eat this by:",
+          '_error -> foodForm("expiry").error.map(_.withMessage("Please tell me when you think this food will go bad, so I can remind you to eat it!"))
+        )
+            <input type="Submit" value="Remind me to eat this!" />
       }
     </div>
   </section>
