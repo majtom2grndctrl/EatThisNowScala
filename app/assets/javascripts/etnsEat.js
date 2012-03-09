@@ -1,11 +1,6 @@
-/*function eatThisNow(foodId) {
-  jquery.ajax({
-    type: "POST",
-    url: "/nom/" + {foodId: foodId}
-  })
-
-  alert("Food ID is " + foodId);
-}*/
+/*
+ * Show the foodForm
+ */
 
 $('#etnAddFoodContainer').hide(0);
 $('#etnLoadFoodContainer').hide(0);
@@ -18,6 +13,15 @@ $('#etnButtonAddFood').click(function(){
   }, 500);
 });
 
+
+/*
+ * foodForm validation
+ */
+
+
+/*
+ * Load food asynchronously after page load
+ */
 $(document).ready(function(){
   $('#etnLoadFoodContainer').load('loadFood', function() {
 //Delay directives below simulate network traffic

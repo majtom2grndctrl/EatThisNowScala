@@ -1,10 +1,8 @@
 @(user: User, foodForm: Form[(String, java.util.Date)])
 
 @main(title = "Eat This Now!", user: User) {
-  <section class="etnAddFoodContainer">
-    <button id="etnButtonAddFood">Add food</button>
-  
-@views.html.layout.foodForm(foodForm, true)
+  <section class="etnAddFoodContainer">  
+@views.html.layout.foodForm(foodForm, hideForm = true)
   </section>
 
   <section class="etnContent">
