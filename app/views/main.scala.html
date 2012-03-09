@@ -15,6 +15,12 @@
         <a href="@routes.Account.manage()" class="etnHeaderAccountLink">@user.firstName @user.lastName</a>
       </section>
       <section class="etnRowMain">
+        <dl class="nav">
+          <dt>Main Navigation</dt>
+          <dd><a href="@routes.Application.logout()">Logout</a></dd>
+        </dl>
+
+
         @content
       </section>
       <script src="@routes.Assets.at("javascripts/etnsEat.js")" type="text/javascript"></script>

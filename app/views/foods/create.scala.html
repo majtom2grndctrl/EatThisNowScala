@@ -1,23 +1,6 @@
 @(foodForm: Form[(String, java.util.Date)], user: User)
 
-@import helper._
-
 @main(title = "Eat This Now!", user: User) {
+@views.html.layout.foodForm(foodForm)    
 
-  @form(routes.Foods.saveFood()) {
-    @inputText(
-      foodForm("name"),
-      '_label -> "Food Name",
-      '_error -> foodForm("name").error.map(_.withMessage("Hey! I can't remind you to eat this if you don't tell me what to call it!")),
-      'required -> "true"
-    )
-    @inputDate(
-      foodForm("expiry"),
-      '_label -> "Eat this by:",
-      '_error -> foodForm("expiry").error.map(_.withMessage("Please tell me when you think this food will go bad, so I can remind you to eat it!")),
-      'required -> "true",
-      'pattern -> """(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d"""
-    )
-    <input type="Submit" value="Remind me to eat this!" />
-  }
 }
