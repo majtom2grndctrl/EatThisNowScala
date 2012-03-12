@@ -30,8 +30,21 @@ $('#etnButtonAddFood').click(function(){
 /*
  * foodForm validation
  */
-  var validator = $("#foodForm").validate({
-    
+  $("#foodForm").validate({
+    rules: {
+      name: "required",
+      expiry: {
+        required: true,
+        date: true
+      }
+    },
+    messages: {
+      name: "Hey! What do you call this food?",
+      date: {
+        required: "When do you think this food will go bad?",
+        date: "That isn't a valid date format! Please use something like 02/02/2012!"
+      }
+    }
   })
 
 
