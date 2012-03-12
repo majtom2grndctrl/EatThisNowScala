@@ -30,14 +30,12 @@ object Foods extends Controller with Secured {
   val newFoodForm = Form(
     tuple(
       "name" -> nonEmptyText,
-//      "expiry" -> text.verifying(pattern("""^(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d$""".r))
       "expiry" -> date("MM/dd/yyyy")
     )
   )
 
   def index = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
-//      Food.sadacheTest(username)
       Ok(
         html.foods.index(
           user,
