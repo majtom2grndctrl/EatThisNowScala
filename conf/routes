@@ -16,7 +16,7 @@ GET     /login                              controllers.Application.login
 POST    /login                              controllers.Application.authenticate
 GET     /logout                             controllers.Application.logout
 
-POST    /nom/:foodId                         controllers.Foods.markAsEaten(foodId: Long)
+GET    /nom/:foodId                         controllers.Foods.markAsEaten(foodId: Long)
 
 GET     /account                            controllers.Account.manage
 GET    /account/summary                            controllers.Account.update

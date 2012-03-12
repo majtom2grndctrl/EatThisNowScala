@@ -1,7 +1,8 @@
+$(document).ready(function(){
+
 /*
  * Show the foodForm
  */
-
 $('#etnAddFoodContainer').hide(0);
 $('#etnLoadFoodContainer').hide(0);
 
@@ -15,14 +16,8 @@ $('#etnButtonAddFood').click(function(){
 
 
 /*
- * foodForm validation
- */
-
-
-/*
  * Load food asynchronously after page load
  */
-$(document).ready(function(){
   $('#etnLoadFoodContainer').load('loadFood', function() {
 //Delay directives below simulate network traffic
     $('#circleG').delay(2000).hide(0);
@@ -30,4 +25,14 @@ $(document).ready(function(){
       "height": "toggle", "opacity": "toggle"
     }, 500);
   });
+
+
+/*
+ * foodForm validation
+ */
+  var validator = $("#foodForm").validate({
+    
+  })
+
+
 });
