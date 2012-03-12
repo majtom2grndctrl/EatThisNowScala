@@ -5,7 +5,7 @@
     <button id="etnButtonAddFood">Add food</button>
     <div id="etnAddFoodContainer">
 }
-      @form(action = routes.Foods.saveFood()) {
+      @form(action = routes.Foods.saveFood(), 'id -> "foodForm") {
         @inputText(
           foodForm("name"),
           '_label -> "Food Name",
