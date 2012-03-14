@@ -6,23 +6,32 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class User(email: String, firstName: String, lastName: String, password: String)
+case class User(id: Pk[Long], email: String, firstName: String, lastName: String, password: String)
 
 object User {
 
   val simple = {
+    get[Pk[Long]]("user.id") ~
     get[String]("user.email") ~
     get[String]("user.firstName") ~
     get[String]("user.lastName") ~
     get[String]("user.password") map {
-      case email~firstName~lastName~password => User(email, firstName, lastName, password)
+      case id~email~firstName~lastName~password => User(id, email, firstName, lastName, password)
     }
   }
 
-def findByEmail(email: String): Option[User] = {
+def findById(userId: Long): Option[User] = {
+    DB.withConnection { implicit csonnection =>
+      SQL("select * from user where id = {userId}").on(
+        'id -> userId
+      ).as(User.simple.singleOpt)
+    }
+  }
+
+def findByEmail(userEmail: String): Option[User] = {
     DB.withConnection { implicit connection =>
-      SQL("select * from user where email = {email}").on(
-        'email -> email
+      SQL("select * from user where email = {userEmail}").on(
+        'email -> userEmail
       ).as(User.simple.singleOpt)
     }
   }
@@ -52,18 +61,17 @@ def findByEmail(email: String): Option[User] = {
       SQL(
         """
           insert into user values (
-            {email}, {firstName}, {lastName}, {password}
+          {id},{email}, {firstName}, {lastName}, {password}
           )
         """
       ).on(
+        'id -> user.id,
         'email -> user.email,
         'firstName -> user.firstName,
         'lastName -> user.lastName,
         'password -> user.password
-      ).executeUpdate()
-      
+      ).executeUpdate()      
       user
-      
     }
   }
 

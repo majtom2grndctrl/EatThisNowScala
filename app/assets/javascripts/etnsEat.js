@@ -20,7 +20,7 @@ $('#etnButtonAddFood').click(function(){
  */
   $('#etnLoadFoodContainer').load('loadFood', function() {
 //Delay directives below simulate network traffic
-    $('#circleG').delay(2000).hide(0);
+    $('#facebookG').delay(2000).hide(0);
     $(this).delay(2000).animate({
       "height": "toggle", "opacity": "toggle"
     }, 500);

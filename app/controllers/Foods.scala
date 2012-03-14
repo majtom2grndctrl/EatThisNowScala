@@ -17,16 +17,16 @@ object Foods extends Controller with Secured {
 
   val Home = Redirect(routes.Foods.index())
 
-  val foodForm = Form(
+/*  val foodForm = Form(
     mapping(
       "id" -> ignored(NotAssigned:Pk[Long]),
       "name" -> nonEmptyText,
       "eaten" -> boolean,
-      "owner" -> nonEmptyText,
+      "owner" -> number, // <- find right type for Long
       "expiry" -> date("MM/dd/yyyy")
     )(Food.apply)(Food.unapply)
   )
-
+*/
   val newFoodForm = Form(
     tuple(
       "name" -> nonEmptyText,
@@ -74,7 +74,7 @@ object Foods extends Controller with Secured {
     Redirect(routes.Foods.index)
   }
 
-  def save = IsAuthenticated { username => implicit request =>
+/*  def save = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
 	    foodForm.bindFromRequest.fold(
 	      formWithErrors => BadRequest,
@@ -86,15 +86,14 @@ object Foods extends Controller with Secured {
 
     }.getOrElse(Forbidden)
   }
-
+*/
   def saveFood = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
-      
       newFoodForm.bindFromRequest.fold(
         errors => BadRequest(html.foods.create(errors, user)),
         {case (name, expiry) => 
           val food = Food.create(
-            Food(NotAssigned, name, false, user.email, expiry)
+            Food(NotAssigned, name, false, user.id.asInstanceOf[Long], expiry)
           )
           Ok
           Redirect(routes.Foods.index)

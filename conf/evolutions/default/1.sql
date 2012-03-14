@@ -3,7 +3,8 @@
 # --- !Ups
 
 create table user (
-  email                     varchar(255) not null primary key,
+  id                        bigint not null primary key,
+  email                     varchar(255) not null,
   firstName                      varchar(255) not null,
   lastName                       varchar(255) not null,
   password                  varchar(255) not null
@@ -15,9 +16,10 @@ create table food (
   eaten						boolean,
   owner						varchar(255) not null,
   expiry					timestamp,
-  foreign key(owner)	references user(email) on delete set null
+  foreign key(owner)	references user(id) on delete cascade
 );
 
+create sequence user_seq start with 1000;
 create sequence food_seq start with 1000;
 
 # --- !Downs

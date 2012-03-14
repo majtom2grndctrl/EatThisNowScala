@@ -8,14 +8,14 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: String, expiry: Date)
+case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: Long, expiry: Date)
 
 object Food {
   val simple = {
     get[Pk[Long]]("food.id") ~
     get[String]("food.name") ~
     get[Boolean]("food.eaten") ~
-    get[String]("food.owner") ~
+    get[Long]("food.owner") ~
     get[Date]("food.expiry") map {
       case id~name~eaten~owner~expiry => Food(
         id, name, eaten, owner, expiry
@@ -23,16 +23,16 @@ object Food {
     }
   }
 
-	def findFoodFor(user: String): Seq[(Food)] = {
+	def findFoodFor(userEmail: String): Seq[(Food)] = {
 		DB.withConnection { implicit connection =>
 			SQL(
 				"""
 				  select * from food
-				  where food.eaten = false and food.owner = {email}
+				  where food.eaten = false and food.owner = {userEmail}
 				  order by 5
 				"""
 			).on(
-				'email -> user
+				'email -> userEmail
 			).as(Food.simple *)
 		}
 	}

@@ -30,7 +30,7 @@ object Account extends Controller with Secured {
       val existingUser: (String, (String, String)) = (user.email, (user.password, user.password))
       Ok(
         html.account.manage(
-          accountForm/*.fill(existingUser)*/,
+          accountForm.fill(existingUser),
           user
         )
       )
