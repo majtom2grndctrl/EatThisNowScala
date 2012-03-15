@@ -28,10 +28,10 @@ def findById(userId: Long): Option[User] = {
     }
   }
 
-def findByEmail(userEmail: String): Option[User] = {
+def findByEmail(email: String): Option[User] = {
     DB.withConnection { implicit connection =>
-      SQL("select * from user where email = {userEmail}").on(
-        'email -> userEmail
+      SQL("select * from user where email = {email}").on(
+        'email -> email
       ).as(User.simple.singleOpt)
     }
   }
