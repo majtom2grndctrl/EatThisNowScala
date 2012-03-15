@@ -24,8 +24,8 @@ object InitialData {
 	def insert() = {
 		if(User.findAll.isEmpty) {
 			Seq(
-				User(Id(1), "dhiester@example.com", "Dan", "Hiester", "secret"),
-				User(Id(2), "wbuccicone@example.com", "Whitney", "Buccicone", "secret")
+				User(1, "dhiester@example.com", "Dan", "Hiester", "secret"),
+				User(2, "wbuccicone@example.com", "Whitney", "Buccicone", "secret")
 			).foreach(User.create)
 
 			Seq(

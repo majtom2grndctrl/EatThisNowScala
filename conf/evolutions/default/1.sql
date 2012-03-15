@@ -14,7 +14,7 @@ create table food (
   id						bigint not null primary key,
   name						varchar(255) not null,
   eaten						boolean,
-  owner						varchar(255) not null,
+  owner						bigint not null,
   expiry					timestamp,
   foreign key(owner)	references user(id) on delete cascade
 );

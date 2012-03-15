@@ -23,16 +23,16 @@ object Food {
     }
   }
 
-	def findFoodFor(userEmail: String): Seq[(Food)] = {
+	def findFoodFor(id: Long): Seq[(Food)] = {
 		DB.withConnection { implicit connection =>
 			SQL(
 				"""
 				  select * from food
-				  where food.eaten = false and food.owner = {userEmail}
+				  where food.eaten = false and food.owner = {id}
 				  order by 5
 				"""
 			).on(
-				'email -> userEmail
+				'id -> id
 			).as(Food.simple *)
 		}
 	}

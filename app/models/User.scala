@@ -6,12 +6,12 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class User(id: Pk[Long], email: String, firstName: String, lastName: String, password: String)
+case class User(id: Long, email: String, firstName: String, lastName: String, password: String)
 
 object User {
 
   val simple = {
-    get[Pk[Long]]("user.id") ~
+    get[Long]("user.id") ~
     get[String]("user.email") ~
     get[String]("user.firstName") ~
     get[String]("user.lastName") ~
