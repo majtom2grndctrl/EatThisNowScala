@@ -24,14 +24,14 @@ object InitialData {
 	def insert() = {
 		if(User.findAll.isEmpty) {
 			Seq(
-				User(1, "dhiester@example.com", "Dan", "Hiester", "secret"),
-				User(2, "wbuccicone@example.com", "Whitney", "Buccicone", "secret")
+				User(NotAssigned, "dhiester@example.com", "Dan", "Hiester", "secret"),
+				User(NotAssigned, "wbuccicone@example.com", "Whitney", "Buccicone", "secret")
 			).foreach(User.create)
 
 			Seq(
-				Food(Id(1), "Turkey", false, 1, date("2011-12-20")),
-				Food(Id(2), "Ham", false, 2, date("2011-12-22")),
-				Food(Id(3), "Pizza", false, 1, date("2011-12-15"))
+				Food(NotAssigned, "Turkey", false, Id(1), date("2011-12-20")),
+				Food(NotAssigned, "Ham", false, Id(2), date("2011-12-22")),
+				Food(NotAssigned, "Pizza", false, Id(1), date("2011-12-15"))
 			).foreach(Food.create)
 		}
 

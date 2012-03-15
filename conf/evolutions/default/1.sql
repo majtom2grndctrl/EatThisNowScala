@@ -3,7 +3,7 @@
 # --- !Ups
 
 create table user (
-  id                        bigint not null primary key,
+  id                        bigint not null primary key auto_increment,
   email                     varchar(255) not null,
   firstName                      varchar(255) not null,
   lastName                       varchar(255) not null,
@@ -11,7 +11,7 @@ create table user (
 );
 
 create table food (
-  id						bigint not null primary key,
+  id						bigint not null primary key auto_increment,
   name						varchar(255) not null,
   eaten						boolean,
   owner						bigint not null,
