@@ -1,15 +1,15 @@
-@960columnWidth: 40px;
-@960gutterWidth: 20px;
+@columnWidth: 40px;
+@gutterWidth: 20px;
 
-.960columnCalculator (@columns, @adjust: 0) {
+.columnCalculator (@columns, @adjust: 0) {
 @gutters: @columns - 1;
-  width: ( @columns * @960columnWidth ) + ( @gutters * @960gutterWidth);
+  width: ( @columns * @columnWidth ) + ( @gutters * @gutterWidth);
 }
 
 .etn2colContainer {
-  .960columnCalculator(2)
+  .columnCalculator(2)
 }
 
 .etn7colContainer {
-  .960columnCalculator(7)
+  .columnCalculator(7)
 }

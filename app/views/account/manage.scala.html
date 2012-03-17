@@ -1,6 +1,14 @@
 @(accountForm: Form[(String, (String, String))], user: User)
+@pageTitle = {Manage your account - Eat This Now!}
 @import helper._
-@main(title = "Manage your account - Eat This Now!", user: User) {
+@mainLayout(user: User)(pageTitle) {
+
+      <div class="etnAccessibleHide">
+        <a href="#foodList" class="etnSkipLink">Skip to your food listing</a>
+        <a href="#mainNav" class="etnSkipLink">Skip to main navigation</a>
+      </div>
+
+} {
 
   <h2>Manage your account</h2>
 

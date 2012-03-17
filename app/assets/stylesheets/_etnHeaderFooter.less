@@ -1,7 +1,14 @@
+@import "_grid.less";
+
 /*section*/.etnRowHeader {
   text-align: center;
   display: block;
   background: url('../images/etnHeaderLogo.png') repeat-x 0 -61px;
+}
+/*div*/.etnHeader {
+  .etn7colContainer
+  text-align: left;
+  margin: 0 auto;
 }
 /*h1*/.etnHeaderLogo {
   margin: 0 auto;
@@ -21,4 +28,26 @@
   left: 50%;
   margin: 0 0 0 150px;
   top: 15px;
+}
+
+/* Account menu
+--------------------------------------------------------*/
+/*dl*/.etnHeaderAccountMenu {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  background: #fff;
+  border: 1px solid #666;
+  border-radius: 3px;
+}
+/*dt*/.etnHeaderAccountMenuTitle {
+}
+/*dd*/.etnHeaderAccountMenuItem {
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+/*a*/.etnHeaderAccountMenuLink {
+  display: block;
+  padding: 10px 3px;
 }
