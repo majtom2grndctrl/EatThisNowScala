@@ -14,7 +14,6 @@ $('#etnButtonAddFood').click(function(){
   }, 500);
 });
 
-
 /*
  * Load food asynchronously after page load
  */
@@ -48,8 +47,20 @@ $('#etnButtonAddFood').click(function(){
   })
 
 /*
- * 
+ * Hide account menu
  */
-  
-
+  $(".etnHeaderAccountMenuItem").css({"position":"absolute","left":"-10000px"});
+  var etnAccountMenuState = "hidden";
+/*
+ * Show account menu
+ */
+  $(".etnHeaderAccountMenuTitle").click(function() {
+	if (etnAccountMenuState == "hidden") {
+      $(".etnHeaderAccountMenuItem").css({"position":"static"});
+      etnAccountMenuState = "shown";
+	} else if (etnAccountMenuState == "shown") {
+      $(".etnHeaderAccountMenuItem").css({"position":"absolute"});
+      etnAccountMenuState = "hidden";
+	}
+  })
 });
