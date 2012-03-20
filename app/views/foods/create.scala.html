@@ -1,8 +1,6 @@
 @(foodForm: Form[(String, java.util.Date)], user: User)
 
-@pageTitle = {Add a new food reminder}
-
-@mainLayout(user: User)(pageTitle) {
+@mainLayout(pageTitle = "Add a New Food Reminder - Eat This Now!", user: User) {
 
       <div class="etnAccessibleHide">
         <a href="#foodList" class="etnSkipLink">Skip to your food listing</a>

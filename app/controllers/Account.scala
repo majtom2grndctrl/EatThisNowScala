@@ -16,6 +16,8 @@ object Account extends Controller with Secured {
   val accountForm = Form(
     tuple(
       "email" -> email,
+	  "firstName" -> text,
+	  "lastName" -> text,
 	  "password" -> tuple(
 	    "password1" -> text(minLength = 6),
 	    "password2" -> text
@@ -27,7 +29,7 @@ object Account extends Controller with Secured {
 
   def manage = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
-      val existingUser: (String, (String, String)) = (user.email, (user.password, user.password))
+      val existingUser: (String, String, String, (String, String)) = (user.email, user.firstName, user.lastName, (user.password, user.password))
       Ok(
         html.account.manage(
           accountForm.fill(existingUser),
@@ -41,8 +43,11 @@ object Account extends Controller with Secured {
     User.findByEmail(username).map { user =>
       accountForm.bindFromRequest.fold(
         errors => BadRequest(html.account.manage(errors, user)),
-        {case(email, (password1, password2)) => Ok(html.account.summary(email, password1, password2, user))}
+        {case(email, firstName, lastName, (password1, password2)) => Ok(html.account.summary(email, firstName, lastName, password1, password2, user))}
       )
     }.getOrElse(Forbidden)
   }
+
+
+
 }
