@@ -1,10 +1,11 @@
 @(foodForm: Form[(String, java.util.Date)], hideForm: Boolean)
 @import helper._
 
-@if(hideForm == true) {
+  <section class="etnAddFoodContainer">  
+  @if(hideForm == true) {
     <button id="etnButtonAddFood">Add food</button>
     <div id="etnAddFoodContainer">
-}
+  }
       @form(action = routes.Foods.saveFood(), 'id -> "foodForm") {
         @inputText(
           foodForm("name"),
@@ -17,7 +18,8 @@
           '_error -> foodForm("expiry").error.map(_.withMessage("Please tell me when you think this food will go bad, so I can remind you to eat it!"))
         )
             <input type="Submit" value="Remind me to eat this!" />
+      }
 @if(hideForm == true) {
     </div>
-}
-      }
+  }
+  </section>  

@@ -16,8 +16,8 @@ object Account extends Controller with Secured {
   val accountForm = Form(
     tuple(
       "email" -> email,
-	  "firstName" -> text,
-	  "lastName" -> text,
+	  "firstName" -> nonEmptyText,
+	  "lastName" -> nonEmptyText,
 	  "password" -> tuple(
 	    "password1" -> text(minLength = 6),
 	    "password2" -> text
