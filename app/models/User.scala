@@ -75,4 +75,20 @@ object User {
     }
   }
 
+  def update(id: Long, user: User) = {
+    DB.withConnection { implicit connection =>
+      SQL(
+        """
+          update user set email = {email}, firstName = {firstName}, lastName = {lastName}, password = {password}
+          where id = {id}
+        """
+      ).on(
+        'id -> id,
+        'email -> user.email,
+        'firstName -> user.firstName,
+        'lastName -> user.lastName,
+        'password -> user.password
+      ).executeUpdate()
+    }
+  }
 }
