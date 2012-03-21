@@ -1,4 +1,5 @@
 @(loginForm: Form[(String, String)], accountForm: Form[(String, String, String, (String, String))])(implicit flash: Flash)
+@import helper._
 <html>
 	<head>
 		<title>Eat This Now!</title>
@@ -31,7 +32,41 @@
   </p>
 }
 
+
+
+
+<h2>Sign up!</h2>
 @helper.form(routes.Application.signUp) {
+    @inputText(
+      field = accountForm("newEmail"),
+      '_label -> "Email Address",
+      '_error -> accountForm.globalError
+    )
+
+    @inputText(
+      field = accountForm("newFirstName"),
+      '_label -> "First Name",
+      '_error -> accountForm.globalError
+    )
+
+    @inputText(
+      field = accountForm("newLastName"),
+      '_label -> "Last Name",
+      '_error -> accountForm.globalError
+    )
+
+    @inputPassword(
+      field = accountForm("newPassword.password1"),
+      '_label -> "Password"
+    )
+
+    @inputPassword(
+      field = accountForm("newPassword.password2"),
+      '_label -> "Repeat Password",
+      '_error -> accountForm.error("password")
+    )
+    
+    <input type="submit" value="Sign up" />
 }
 </body>
 </html>
