@@ -75,7 +75,7 @@ object User {
     }
   }
 
-  def update(id: Long, user: User) = {
+  def update(user: User) = {
     DB.withConnection { implicit connection =>
       SQL(
         """
@@ -83,7 +83,7 @@ object User {
           where id = {id}
         """
       ).on(
-        'id -> id,
+        'id -> user.id,
         'email -> user.email,
         'firstName -> user.firstName,
         'lastName -> user.lastName,

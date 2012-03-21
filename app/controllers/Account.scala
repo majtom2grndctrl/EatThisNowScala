@@ -15,10 +15,10 @@ object Account extends Controller with Secured {
 
   val accountForm = Form(
     tuple(
-      "email" -> email,
-	  "firstName" -> nonEmptyText,
-	  "lastName" -> nonEmptyText,
-	  "password" -> tuple(
+      "newEmail" -> email,
+	  "newFirstName" -> nonEmptyText,
+	  "newLastName" -> nonEmptyText,
+	  "newPassword" -> tuple(
 	    "password1" -> text(minLength = 6),
 	    "password2" -> text
 	  ).verifying(
@@ -41,9 +41,16 @@ object Account extends Controller with Secured {
 
   def update = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
+      val existingUser: (String, String, String, (String, String)) = (user.email, user.firstName, user.lastName, (user.password, user.password))
       accountForm.bindFromRequest.fold(
         errors => BadRequest(html.account.manage(errors, user)),
-        {case(email, firstName, lastName, (password1, password2)) => Ok(html.account.summary(email, firstName, lastName, password1, password2, user))}
+        {case(newEmail, newFirstName, newLastName, (password1, password2)) =>
+          val userUpdate = User.update(
+            User(user.id, newEmail, newFirstName, newLastName, password1)
+          )
+          Ok.flashing("success" -> "User %s has been updated".format(user.id))
+          Redirect(routes.Account.manage)
+        }
       )
     }.getOrElse(Forbidden)
   }

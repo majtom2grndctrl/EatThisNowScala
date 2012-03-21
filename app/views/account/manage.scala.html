@@ -13,32 +13,32 @@
 
   <p>(doesn't actually do anything yet)</p>  
   <div>
-  @form(action = routes.Account.update) {
+  @form(action = routes.Account.update()) {
     @inputText(
-      field = accountForm("email"),
+      field = accountForm("newEmail"),
       '_label -> "Email Address",
       '_error -> accountForm.globalError
     )
 
     @inputText(
-      field = accountForm("firstName"),
+      field = accountForm("newFirstName"),
       '_label -> "First Name",
       '_error -> accountForm.globalError
     )
 
     @inputText(
-      field = accountForm("lastName"),
+      field = accountForm("newLastName"),
       '_label -> "Last Name",
       '_error -> accountForm.globalError
     )
 
     @inputPassword(
-      field = accountForm("password.password1"),
+      field = accountForm("newPassword.password1"),
       '_label -> "Password"
     )
 
     @inputPassword(
-      field = accountForm("password.password2"),
+      field = accountForm("newPassword.password2"),
       '_label -> "Repeat Password",
       '_error -> accountForm.error("password")
     )
