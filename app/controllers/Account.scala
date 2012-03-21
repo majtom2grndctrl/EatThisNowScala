@@ -23,10 +23,7 @@ object Account extends Controller with Secured {
 	    "password2" -> text
 	  ).verifying(
 	    "Passwords don't match", passwords => passwords._1 == passwords._2
-//wouldn't this be a good place to run the query? Eh?
-	  )/*.verifying ("Something really went wrong", result => result match {
-          case (newEmail, newPassword) => User.authenticate(newEmail, newPassword).isDefined
-	    })*/
+	  )
 	)
   )
   

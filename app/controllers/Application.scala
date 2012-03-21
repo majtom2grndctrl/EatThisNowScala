@@ -5,8 +5,11 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 
+import anorm._
+
 import models._
 import views._
+
 
 object Application extends Controller {
 
@@ -21,13 +24,28 @@ object Application extends Controller {
     })
   )
 
+  val accountForm = Form(
+    tuple(
+      "newEmail" -> email,
+	  "newFirstName" -> nonEmptyText,
+	  "newLastName" -> nonEmptyText,
+	  "newPassword" -> tuple(
+	    "password1" -> text(minLength = 6),
+	    "password2" -> text
+	  ).verifying(
+	    "Passwords don't match", passwords => passwords._1 == passwords._2
+	  )
+	)
+  )
+
+
   def login = Action { implicit request =>
-    Ok(html.login(loginForm))
+    Ok(html.login(loginForm, accountForm))
   }
 
   def authenticate = Action { implicit request =>
     loginForm.bindFromRequest.fold(
-      formWithErrors => BadRequest(html.login(formWithErrors)),
+      formWithErrors => BadRequest(html.login(formWithErrors, accountForm)),
       user => Redirect(routes.Foods.index).withSession("email" -> user._1)
     )
   }
@@ -36,8 +54,21 @@ object Application extends Controller {
     Redirect(routes.Application.login).withNewSession.flashing(
       "success" -> "You've been logged out"
     )
+  } 
+
+  def signUp = Action { implicit request =>
+    accountForm.bindFromRequest.fold(
+      formWithErrors => BadRequest(html.login(loginForm, formWithErrors)),
+      {case (newEmail, newFirstName, newLastName, (password1, password2)) =>
+        val userCreate = User.create(
+          User(NotAssigned, newEmail, newFirstName, newLastName, password1)
+        )
+        Redirect(routes.Foods.index).withSession("email" -> newEmail)
+      }
+    )
   }
-/*
+
+  /*
   def javascriptRoutes = Action {
     import routes.javascript._
     Ok(
