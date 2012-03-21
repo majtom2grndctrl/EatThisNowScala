@@ -49,7 +49,7 @@ object Account extends Controller with Secured {
             User(user.id, newEmail, newFirstName, newLastName, password1)
           )
           Ok.flashing("success" -> "User %s has been updated".format(user.id))
-          Redirect(routes.Account.manage)
+          Redirect(routes.Account.manage).withSession("newEmail" -> user.email)
         }
       )
     }.getOrElse(Forbidden)
