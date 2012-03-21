@@ -23,10 +23,10 @@ object Account extends Controller with Secured {
 	    "password2" -> text
 	  ).verifying(
 	    "Passwords don't match", passwords => passwords._1 == passwords._2
-	  ).verifying ("Something really went wrong", result => result match {
+//wouldn't this be a good place to run the query? Eh?
+	  )/*.verifying ("Something really went wrong", result => result match {
           case (newEmail, newPassword) => User.authenticate(newEmail, newPassword).isDefined
-	    }
-	  )
+	    })*/
 	)
   )
   
@@ -54,7 +54,7 @@ object Account extends Controller with Secured {
           )
           Ok.flashing("success" -> "User %s has been updated".format(user.id))
           
-          Redirect(routes.Account.manage).withSession("newEmail" -> user.email)
+          Redirect(routes.Account.manage).withSession("email" -> newEmail)
         }
       )
     }.getOrElse(Forbidden)
