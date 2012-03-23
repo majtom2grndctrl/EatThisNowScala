@@ -16,6 +16,8 @@ class ModelSpec extends Specification {
 
   // --
 
+  // TODO: Add a test user to the scripts executed on Application launch that won't be messed with by users like me or Whitney.
+  
   "Food model" should {
     "be retrieved by id" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
