@@ -17,11 +17,12 @@ class ModelSpec extends Specification {
     "be retrieved by id" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 
-        val pizza = Food.findById(1)
+        val Some(pizza) = Food.findById(1000)
 
         pizza.name must equalTo("Mashed Potatoes")
         pizza.eaten must equalTo(false)
-        pizza.owner must equalTo("test@example.com")
+//        pizza.expiry must equalTo(date(2012-05-21 00:00:00.0))
+//        pizza.owner must equalTo(1)
       }
     }
 /*

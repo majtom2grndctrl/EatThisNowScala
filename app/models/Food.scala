@@ -71,7 +71,7 @@ object Food {
   	}
 
 
-  	def isOwner(food: Long, user: String): Boolean = {
+  	def isOwner(foodId: Long, user: String): Boolean = {
   	  DB.withConnection { implicit connection =>
   	    SQL(
   	      """
@@ -79,7 +79,7 @@ object Food {
   	        where food.owner = {email} and food.id = {food}
   	      """
   	    ).on(
-  	      'food -> food,
+  	      'food -> foodId,
   	      'email -> user
   	    ).as(scalar[Boolean].single)
   	  }
@@ -88,11 +88,11 @@ object Food {
 
 
 //Used for Specs testing
-  	def findById(foodId: Long): Food = {
+  	def findById(foodId: Long): Option[Food] = {
   	  DB.withConnection { implicit connection =>
   	    SQL("select * from food where food.id = {foodId}").on(
   	      'foodId-> foodId
-  	    ).as(Food.simple.single)
+  	    ).as(Food.simple.singleOpt)
   	  }
   	}
 

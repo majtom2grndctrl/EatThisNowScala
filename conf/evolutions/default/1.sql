@@ -10,8 +10,10 @@ create table user (
   password                  varchar(255) not null
 );
 
+create sequence user_seq start with 1000;
+
 create table food (
-  id						bigint not null primary key auto_increment,
+  id		  				bigint not null primary key auto_increment,
   name						varchar(255) not null,
   eaten						boolean,
   owner						bigint not null,
@@ -19,7 +21,6 @@ create table food (
   foreign key(owner)	references user(id) on delete cascade
 );
 
-create sequence user_seq start with 1000;
 create sequence food_seq start with 1000;
 
 # --- !Downs
@@ -27,3 +28,5 @@ create sequence food_seq start with 1000;
 drop table if exists food;
 drop sequence if exists food_seq;
 drop table if exists user;
+drop sequence if exists user_seq;
+
