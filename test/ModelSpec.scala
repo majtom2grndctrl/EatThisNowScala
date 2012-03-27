@@ -10,23 +10,18 @@ class ModelSpec extends Specification {
 
   import models._
 
-  // -- Date helpers
-
-  def dateIs(date: java.util.Date, str: String) = new java.text.SimpleDateFormat("yyyy-MM-dd").format(date) == str
-
-  // --
-
-  // TODO: Add a test user to the scripts executed on Application launch that won't be messed with by users like me or Whitney.
+  // -- Date helper
+  def dateIs(date: java.util.Date, str: String) = new java.text.SimpleDateFormat("yyyy/MM/dd").format(date) == str
   
   "Food model" should {
     "be retrieved by id" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 
-        val pizza = Food.findById(3)
+        val pizza = Food.findById(1)
 
-        pizza.name must equalTo("Pizza")
+        pizza.name must equalTo("Mashed Potatoes")
         pizza.eaten must equalTo(false)
-        pizza.owner must equalTo("dhiester@example.com")
+        pizza.owner must equalTo("test@example.com")
       }
     }
 /*

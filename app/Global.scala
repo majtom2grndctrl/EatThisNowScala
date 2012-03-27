@@ -14,11 +14,12 @@ object Global extends GlobalSettings {
 
 /**
  * Initial set of data to be imported 
- * in the sample application.
+ * in the application.
  */
 
 object InitialData {
 
+  
 	def date(str: String) = new java.text.SimpleDateFormat("yyyy/MM/dd").parse(str)
 
 	def insert() = {
@@ -31,6 +32,7 @@ object InitialData {
 
 			Seq(
 			    Food(NotAssigned, "Mashed Potatoes", false, Id(1), date("2012/05/21")),
+			    Food(NotAssigned, "Fried Green Tomatoes", false, Id(1), date("2012/04/21")),
 				Food(NotAssigned, "Turkey", false, Id(2), date("2011/12/20")),
 				Food(NotAssigned, "Ham", false, Id(3), date("2011/12/22")),
 				Food(NotAssigned, "Pizza", false, Id(2), date("2011/12/15"))
