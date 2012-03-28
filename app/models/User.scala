@@ -23,7 +23,7 @@ object User {
   def findById(userId: Long): Option[User] = {
     DB.withConnection { implicit csonnection =>
       SQL("select * from user where id = {userId}").on(
-        'id -> userId
+        'userId -> userId
       ).as(User.simple.singleOpt)
     }
   }

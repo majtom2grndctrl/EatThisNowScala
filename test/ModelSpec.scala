@@ -28,46 +28,21 @@ class ModelSpec extends Specification {
         mashedPotatoes.owner must equalTo(Id(1))
       }
     }
-
-/*    "User model" should {
-      "be retrieved by id" in {
-        running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
-
-          val Some(testUser) = User.findById(1)
-
-          testUser.firstName must equalTo("Test")
-          testUser.lastName must equalTo("User")
-
-        }
-      }
-    }
-*/
-/*
-    "Add new food to a user's list" in {
-      running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
-        val badResult = controllers.Foods.save(FakeRequest())
-
-        status(badResult) must equalTo(BAD_REQUEST)
-
-        val badDateFormat = controllers.Foods.save(
-          FakeRequest().withFormUrlEncodedBody(
-            "id" -> "0",
-            "name" -> "badname",
-            "eaten" -> "wrong",
-            "owner" -> "userwithoutdomain",
-            "expiry" -> "baddate"
-          )
-        )
-
-        status(badDateFormat) must equalTo(BAD_REQUEST)
-
-      }
-    }
-*/
-
   }
 
+  "User model" should {
+    "be retrieved by id" in {
+      running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 
+        val Some(testUser) = User.findById(1: Long)
 
+        testUser.firstName must equalTo("Test")
+        testUser.lastName must equalTo("User")
+        testUser.email must equalTo("test@example.com")
+        testUser.password must equalTo("secret")
+        testUser.id must equalTo(Id(1))
 
+      }
+    }
+  }
 }
