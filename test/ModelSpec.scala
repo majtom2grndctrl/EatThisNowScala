@@ -45,4 +45,32 @@ class ModelSpec extends Specification {
       }
     }
   }
+
+  "Add new food to test user's list" in {
+    running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
+	
+      Food.create(Food(NotAssigned, "Test Food", false, Id(1), date("11/19/2012")))
+	
+      val Some(testFood) = Food.findById(1005)
+	
+      testFood.name must equalTo("Test Food")
+      testFood.eaten must equalTo(false)
+      testFood.owner must equalTo(Id(1))
+      testFood.expiry must equalTo(date("11/19/2012"))
+    }
+  }
+
+  "Add new food to test user's list and mark as eaten" in {
+    running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
+	
+      Food.create(Food(NotAssigned, "Test Food", false, Id(1), date("11/19/2012")))
+      Food.markAsEaten(1005, true)
+
+      val Some(testFood) = Food.findById(1005)
+	
+      testFood.eaten must equalTo(true)
+    }
+  }
+
+
 }
