@@ -62,14 +62,14 @@ class ModelSpec extends Specification {
         val testFoods: Seq[Food] = Food.findFoodFor(Id(1))
 
         testFoods must have length(2); // This test at least verifies two foods are retreived
-/* This test fails        
+// This test fails        
         testFoods must equalTo(
           List(
             Food(Id(1001), "Fried Green Tomatoes", false, Id(1), dateHelper("04/21/2012")),
             Food(Id(1000), "Mashed Potatoes", false, Id(1), dateHelper("05/21/2012"))
           )
         )
-*/
+
 // This test passes, verifies contents of first food item from DB
         testFoods.head.id must equalTo(Id(1001))
         testFoods.head.name must equalTo("Fried Green Tomatoes")

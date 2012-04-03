@@ -183,3 +183,36 @@ dd {
   background: #e27f1d;
   color: #fff;
 }
+
+
+
+
+
+/* 7.) Content-related rules
+--------------------------------------------------------*/
+/*ul*/.etnFoodList {
+  list-style: none;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+/*li*/.etnFoodListItem {
+  display: block;
+  margin: 0 0 5px 0;
+  padding: 5px;
+}
+/*li*/.etnFoodListItem:hover {
+  background: #f2f2f2;
+}
+/*h3*/.etnFoodListItemName {
+  font-weight: normal;
+  color: #333;
+  font-size: 16px; /* <- Update this later */
+  margin: 0 0 2px 0;
+}
+/*a*/.etnFoodListItemLink {
+  visibility: hidden;
+  font-size: 14px;
+}
+/*li*/.etnFoodListItem:hover > .etnFoodListItemLink {
+  visibility: visible;
+}
