@@ -23,7 +23,7 @@ object Food {
     }
   }
 
-	def findFoodFor(id: Pk[Long]): Seq[(Food)] = {
+	def findFoodFor(id: Pk[Long]): Seq[Food] = {
 		DB.withConnection { implicit connection =>
 			SQL(
 				"""

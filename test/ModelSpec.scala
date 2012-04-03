@@ -5,15 +5,17 @@ import org.specs2.mutable._
 import play.api.test._
 import play.api.test.Helpers._
 import anorm._
+import play.api.data._
 
 import java.util.{Date}
+import java.text.SimpleDateFormat
 
 class ModelSpec extends Specification {
 
   import models._
 
   // -- Date helper
-  def date(str: String) = new java.text.SimpleDateFormat("yyyy/MM/dd").parse(str)
+  def dateHelper(str: String): Date = new SimpleDateFormat("MM/dd/yyyy").parse(str)
 
   "Food model" should {
     "be retrieved by id" in {
@@ -23,23 +25,23 @@ class ModelSpec extends Specification {
 
         mashedPotatoes.name must equalTo("Mashed Potatoes")
         mashedPotatoes.eaten must equalTo(false)
-        mashedPotatoes.expiry must equalTo(date("2012/05/21"))
         mashedPotatoes.id must equalTo(Id(1000))
         mashedPotatoes.owner must equalTo(Id(1))
+        mashedPotatoes.expiry must equalTo(dateHelper("05/21/2012"))
       }
     }
 
     "Add new food to test user's list" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 	
-        Food.create(Food(NotAssigned, "Test Food", false, Id(1), date("11/19/2012")))
+        Food.create(Food(NotAssigned, "Test Food", false, Id(1), dateHelper("11/19/2012")))
 	
         val Some(testFood) = Food.findById(1005)
-	
+
         testFood.name must equalTo("Test Food")
         testFood.eaten must equalTo(false)
         testFood.owner must equalTo(Id(1))
-        testFood.expiry must equalTo(date("11/19/2012"))
+        testFood.expiry must equalTo(dateHelper("11/19/2012"))
       }
     }
 
@@ -51,6 +53,23 @@ class ModelSpec extends Specification {
         val Some(testFood) = Food.findById(1000)
 	
         testFood.eaten must equalTo(true)
+      }
+    }
+
+      "return food for test user in " in {
+
+      running(FakeApplication()) {
+        val testFoods: Seq[Food] = Food.findFoodFor(Id(1))
+
+        testFoods must equalTo(
+          List(
+            Food(Id(1001), "Fried Green Tomatoes", false, Id(1), dateHelper("04/21/2012")),
+            Food(Id(1000), "Mashed Potatoes", false, Id(1), dateHelper("05/21/2012"))
+          )
+        )
+
+
+        testFoods.head.expiry must equalTo(dateHelper("04/21/2012"))
       }
     }
   }
