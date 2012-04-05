@@ -199,7 +199,7 @@ dd {
 /*li*/.etnFoodListItem {
   display: block;
   margin: 0 0 5px 0;
-  padding: 5px 60px 0;
+  padding: 5px 60px 0 0;
   position: relative;
 }
 /*li*/.etnFoodListItem:hover {
@@ -216,12 +216,9 @@ dd {
   max-width: 250px;
 }
 /*a*/.etnFoodListItemNom {
-  visibility: hidden;
   font-size: 28em / 13;
   display: block;
   position: absolute;
-  right: -60px;
-}
-/*li*/.etnFoodListItem:hover > .etnFoodListItemNom {
-  visibility: visible;
+  right: 0;
+  top: 0;
 }
