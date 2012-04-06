@@ -1,21 +1,18 @@
 @(user: User, foodForm: Form[(String, java.util.Date)])
 
 @mainLayout(pageTitle = "Eat This Now!", user: User) {
+@* skipNav *@
       <div class="etnAccessibleHide">
         <a href="#foodList" class="etnSkipLink">Skip to your food listing</a>
         <a href="#mainNav" class="etnSkipLink">Skip to main navigation</a>
       </div>  
 } {
-@views.html.layout.foodForm(foodForm, hideForm = true)
+@* content *@
+  @views.html.layout.foodForm(foodForm, hideForm = true)
 
-  <section class="etnContent">
-  
     @views.html.layout.heading("Eat this food!")
 
     @views.html.layout.loadingAnimation()
 
     <div id="etnLoadFoodContainer"></div>
-
-  </section>
-
 }

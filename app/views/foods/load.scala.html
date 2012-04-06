@@ -1,11 +1,12 @@
 @(foods: Seq[Food], user: User)
-
     <ul class="etnFoodList">
     @foods.map { food =>
       <li class="etnFoodListItem">
-        <h3 class="etnFoodListItemName">@food.name</h3>
+        <a href="@routes.Foods.markAsEaten(food.id.get)" class="etnFoodListItemLink" title="Click here if you ate your @food.name">
+          <h3 class="etnFoodListItemName">@food.name</h3>
           <span class="etnFoodListItemExpiry">Eat this by @food.expiry.format("MMMM dd, yyyy")</span>
-          <a href="@routes.Foods.markAsEaten(food.id.get)" class="etnFoodListItemNom">Nom this</a>
+          <span class="etnFoodListItemNom">I ate this!</span>
+        </a>
       </li>
     }
     </ul>
