@@ -93,7 +93,8 @@ trait Secured {
   }
 
   def IsOwnerOf(food: Long)(f: => String => Request[AnyContent] => Result) = IsAuthenticated { user => request =>
-    if(Food.isOwner(food, user)) {
+    val userObject = User.findByEmail(user)
+    if(Food.isOwner(food, userObject.get.id)) {
       f(user)(request)
     } else {
       Results.Forbidden

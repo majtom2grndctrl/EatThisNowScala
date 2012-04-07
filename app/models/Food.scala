@@ -71,16 +71,16 @@ object Food {
   	}
 
 
-  	def isOwner(foodId: Long, user: String): Boolean = {
+  	def isOwner(foodId: Long, userId: Pk[Long]): Boolean = {
   	  DB.withConnection { implicit connection =>
   	    SQL(
   	      """
   	        select count(food.id) = 1 from food
-  	        where food.owner = {email} and food.id = {food}
+  	        where food.owner = {userId} and food.id = {food}
   	      """
   	    ).on(
   	      'food -> foodId,
-  	      'email -> user
+  	      'userId -> userId
   	    ).as(scalar[Boolean].single)
   	  }
   	}

@@ -58,7 +58,7 @@ object Foods extends Controller with Secured {
   }
 
   def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
-  	println("markAsEaten " + food)
+    
     Food.markAsEaten(food, true: Boolean)
     Ok
     Redirect(routes.Foods.index)
