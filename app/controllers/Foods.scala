@@ -57,7 +57,7 @@ object Foods extends Controller with Secured {
     }.getOrElse(Forbidden)
   }
 
-  def markAsEaten(foodId: Long) = IsOwnerOf(food) { _ => implicit request =>
+  def markAsEaten(foodId: Long) = IsOwnerOf(foodId) { _ => implicit request =>
     Food.updateStatus(foodId, "eaten")
     Ok
     Redirect(routes.Foods.index)
