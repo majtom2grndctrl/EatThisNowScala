@@ -48,7 +48,7 @@ class ModelSpec extends Specification {
     "mark food as eaten" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 	
-        Food.markAsEaten(1000)
+        Food.updateStatus(1000, "eaten")
 
         val Some(testFood) = Food.findById(1000)
 	

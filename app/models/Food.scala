@@ -61,10 +61,11 @@ object Food {
 	  }
 	}
 
-  	def markAsEaten(foodId: Long) {
+  	def updateStatus(foodId: Long, newStatus: String) {
   	  DB.withConnection { implicit connection =>
-  	    SQL("update food set status = 'eaten' where id = {id}").on(
-  	      'id -> foodId
+  	    SQL("update food set status = {status} where id = {id}").on(
+  	      'id -> foodId,
+          'status -> newStatus
   	    ).executeUpdate()
   	  }
   	}
