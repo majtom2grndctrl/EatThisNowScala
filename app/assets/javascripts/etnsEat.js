@@ -63,4 +63,12 @@ $('#etnButtonAddFood').click(function(){
       etnAccountMenuState = "hidden";
 	}
   })
+
+  /*
+   * Show food options
+   */
+
+  function etnShowFoodOptions(id) {
+	  
+  }
 });
