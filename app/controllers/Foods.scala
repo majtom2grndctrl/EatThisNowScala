@@ -39,7 +39,7 @@ object Foods extends Controller with Secured {
     User.findByEmail(username).map { user =>
       Ok(
 	    html.foods.load(
-	      Food.findFoodFor(user.id),
+	      Food.findEdibleFoodFor(user.id),
 	      user
 	    )
       )
@@ -58,7 +58,7 @@ object Foods extends Controller with Secured {
   }
 
   def markAsEaten(food: Long) = IsOwnerOf(food) { _ => implicit request =>
-    Food.markAsEaten(food, true: Boolean)
+    Food.markAsEaten(food)
     Ok
     Redirect(routes.Foods.index)
   }
@@ -69,7 +69,7 @@ object Foods extends Controller with Secured {
         errors => BadRequest(html.foods.create(errors, user)),
         {case (name, expiry) => 
           val food = Food.create(
-            Food(NotAssigned, name, false, user.id, expiry)
+            Food(NotAssigned, name, "edible", user.id, expiry)
           )
           Ok
           Redirect(routes.Foods.index)

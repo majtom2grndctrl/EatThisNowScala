@@ -14,7 +14,7 @@ object Global extends GlobalSettings {
 
 /**
  * Initial set of data to be imported 
- * in the application.
+ * into the application.
  */
 
 object InitialData {
@@ -31,11 +31,11 @@ object InitialData {
 			).foreach(User.create)
 
 			Seq(
-			    Food(NotAssigned, "Mashed Potatoes", false, Id(1), dateHelper("05/21/2012")),
-			    Food(NotAssigned, "Fried Green Tomatoes", false, Id(1), dateHelper("04/21/2012")),
-				Food(NotAssigned, "Turkey", false, Id(2), dateHelper("12/20/2011")),
-				Food(NotAssigned, "Ham", false, Id(3), dateHelper("12/22/2011")),
-				Food(NotAssigned, "Pizza", false, Id(2), dateHelper("12/15/2011"))
+			    Food(NotAssigned, "Mashed Potatoes", "edible", Id(1), dateHelper("05/21/2012")),
+			    Food(NotAssigned, "Fried Green Tomatoes", "edible", Id(1), dateHelper("04/21/2012")),
+				Food(NotAssigned, "Turkey", "edible", Id(2), dateHelper("12/20/2011")),
+				Food(NotAssigned, "Ham", "edible", Id(3), dateHelper("12/22/2011")),
+				Food(NotAssigned, "Pizza", "edible", Id(2), dateHelper("12/15/2011"))
 			).foreach(Food.create)
 		}
 

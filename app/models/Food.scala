@@ -8,13 +8,13 @@ import play.api.Play.current
 import anorm._
 import anorm.SqlParser._
 
-case class Food (id: Pk[Long], name: String, eaten: Boolean, owner: Pk[Long], expiry: Date)
+case class Food (id: Pk[Long], name: String, status: String, owner: Pk[Long], expiry: Date)
 
 object Food {
   val simple = {
     get[Pk[Long]]("food.id") ~
     get[String]("food.name") ~
-    get[Boolean]("food.eaten") ~
+    get[String]("food.status") ~
     get[Pk[Long]]("food.owner") ~
     get[Date]("food.expiry") map {
       case id~name~eaten~owner~expiry => Food(
@@ -23,12 +23,12 @@ object Food {
     }
   }
 
-	def findFoodFor(id: Pk[Long]): Seq[Food] = {
+	def findEdibleFoodFor(id: Pk[Long]): Seq[Food] = {
 		DB.withConnection { implicit connection =>
 			SQL(
 				"""
 				  select * from food
-				  where food.eaten = false and food.owner = {id}
+				  where food.status = 'edible' and food.owner = {id}
 				  order by 5
 				"""
 			).on(
@@ -45,13 +45,13 @@ object Food {
 	  SQL(
 	      """
 			  insert into food values (
-	      {id}, {name}, {eaten}, {owner}, {expiry}
+	      {id}, {name}, {status}, {owner}, {expiry}
 			  )
 	      """
 	  ).on(
 	      'id -> id,
 	      'name -> food.name,
-	      'eaten -> food.eaten,
+	      'status -> food.status,
 	      'owner -> food.owner,
 	      'expiry -> food.expiry
 	  ).executeUpdate()
@@ -61,11 +61,10 @@ object Food {
 	  }
 	}
 
-  	def markAsEaten(foodId: Long, eaten: Boolean) {
+  	def markAsEaten(foodId: Long) {
   	  DB.withConnection { implicit connection =>
-  	    SQL("update food set eaten = {eaten} where id = {id}").on(
-  	      'id -> foodId,
-  	      'eaten -> eaten
+  	    SQL("update food set status = 'eaten' where id = {id}").on(
+  	      'id -> foodId
   	    ).executeUpdate()
   	  }
   	}

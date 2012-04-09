@@ -24,58 +24,52 @@ class ModelSpec extends Specification {
         val Some(mashedPotatoes) = Food.findById(1000)
 
         mashedPotatoes.name must equalTo("Mashed Potatoes")
-        mashedPotatoes.eaten must equalTo(false)
+        mashedPotatoes.status must equalTo("edible")
         mashedPotatoes.id must equalTo(Id(1000))
         mashedPotatoes.owner must equalTo(Id(1))
         mashedPotatoes.expiry must equalTo(dateHelper("05/21/2012"))
       }
     }
 
-    "Add new food to test user's list" in {
+    "add new food to test user's list" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 	
-        Food.create(Food(NotAssigned, "Test Food", false, Id(1), dateHelper("11/19/2012")))
+        Food.create(Food(NotAssigned, "Test Food", "edible", Id(1), dateHelper("11/19/2012")))
 	
         val Some(testFood) = Food.findById(1005)
 
         testFood.name must equalTo("Test Food")
-        testFood.eaten must equalTo(false)
+        testFood.status must equalTo("edible")
         testFood.owner must equalTo(Id(1))
         testFood.expiry must equalTo(dateHelper("11/19/2012"))
       }
     }
 
-    "Mark food as eaten" in {
+    "mark food as eaten" in {
       running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
 	
-        Food.markAsEaten(1000, true)
+        Food.markAsEaten(1000)
 
         val Some(testFood) = Food.findById(1000)
 	
-        testFood.eaten must equalTo(true)
+        testFood.status must equalTo("eaten")
       }
     }
 
-      "return food for test user in " in {
+      "return food for test user " in {
 
       running(FakeApplication()) {
-        val testFoods: Seq[Food] = Food.findFoodFor(Id(1))
+        val testFoods: Seq[Food] = Food.findEdibleFoodFor(Id(1))
 
         testFoods must have length(2); // This test at least verifies two foods are retreived
-// This test fails        
+
         testFoods must equalTo(
           List(
-            Food(Id(1001), "Fried Green Tomatoes", false, Id(1), dateHelper("04/21/2012")),
-            Food(Id(1000), "Mashed Potatoes", false, Id(1), dateHelper("05/21/2012"))
+            Food(Id(1001), "Fried Green Tomatoes", "edible", Id(1), dateHelper("04/21/2012")),
+            Food(Id(1000), "Mashed Potatoes", "edible", Id(1), dateHelper("05/21/2012"))
           )
         )
 
-// This test passes, verifies contents of first food item from DB
-        testFoods.head.id must equalTo(Id(1001))
-        testFoods.head.name must equalTo("Fried Green Tomatoes")
-        testFoods.head.eaten must equalTo(false)
-        testFoods.head.owner must equalTo(Id(1))
-        testFoods.head.expiry must equalTo(dateHelper("04/21/2012"))
       }
     }
   }

@@ -15,7 +15,7 @@ create sequence user_seq start with 1000;
 create table food (
   id		  				bigint not null primary key auto_increment,
   name						varchar(255) not null,
-  eaten						boolean,
+  status					varchar(15),
   owner						bigint not null,
   expiry					date,
   foreign key(owner)	references user(id) on delete cascade
