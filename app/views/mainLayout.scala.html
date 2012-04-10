@@ -10,29 +10,29 @@
     </head>
     <body>
 @skipNav
-      <section class="etnRowHeader">
-        <div class="etnHeader">
-          <h1 class="etnHeaderLogo">
-            <a class="etnHeaderLogoLink" href="@routes.Foods.index()">Eat This Now!</a>
+      <section class="etnsRowHeader">
+        <div class="etnsHeader">
+          <h1 class="etnsHeaderLogo">
+            <a class="etnsHeaderLogoLink" href="@routes.Foods.index()">Eat This Now!</a>
           </h1>
-          <dl class="etnHeaderAccountMenu">
-            <dt class="etnHeaderAccountMenuTitle">
-                <span class="etnAccessibleHide">Account menu for </span>
+          <dl class="etnsHeaderAccountMenu">
+            <dt class="etnsHeaderAccountMenuTitle">
+                <span class="etnsAccessibleHide">Account menu for </span>
                 @user.firstName @user.lastName
             </dt>
-            <dd class="etnHeaderAccountMenuItem">
-              <a href="@routes.Account.manage()" class="etnHeaderAccountMenuLink">Account management</a>
+            <dd class="etnsHeaderAccountMenuItem">
+              <a href="@routes.Account.manage()" class="etnsHeaderAccountMenuLink">Account management</a>
             </dd>
-            <dd class="etnHeaderAccountMenuItem">
-              <a href="@routes.Application.logout()" class="etnHeaderAccountMenuLink">Logout</a>
+            <dd class="etnsHeaderAccountMenuItem">
+              <a href="@routes.Application.logout()" class="etnsHeaderAccountMenuLink">Logout</a>
             </dd>
 		  </dl>
         </div>
       </section>
-      <section class="etnRowMain">
-        <div class="etnMain">
+      <section class="etnsRowMain">
+        <div class="etnsMain">
 @content
-          <div class="etnClear"></div>
+          <div class="etnsClear"></div>
         </div>
       </section>
       <script src="@routes.Assets.at("javascripts/etnsEat.js")" type="text/javascript"></script>

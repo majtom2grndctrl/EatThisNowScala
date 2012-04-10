@@ -1,10 +1,10 @@
 @(foodForm: Form[(String, java.util.Date)], hideForm: Boolean)
 @import helper._
 
-  <section class="etnAddFoodContainer">  
+  <section class="etnsAddFoodContainer">  
   @if(hideForm == true) {
-    <button id="etnButtonAddFood">Add food</button>
-    <div id="etnAddFoodContainer">
+    <button id="etnsButtonAddFood">Add food</button>
+    <div id="etnsAddFoodContainer">
   }
       @form(action = routes.Foods.saveFood(), 'id -> "foodForm") {
         @inputText(
