@@ -39,8 +39,7 @@ object Foods extends Controller with Secured {
     User.findByEmail(username).map { user =>
       Ok(
 	    html.foods.loadListItems(
-	      Food.findEdibleFoodFor(user.id),
-	      user
+	      Food.findEdibleFoodFor(user.id)
 	    )
       )
     }.getOrElse(Forbidden)
