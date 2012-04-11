@@ -38,7 +38,7 @@ object Foods extends Controller with Secured {
   def loadFood = IsAuthenticated { username => _ =>
     User.findByEmail(username).map { user =>
       Ok(
-	    html.foods.load(
+	    html.foods.loadListItems(
 	      Food.findEdibleFoodFor(user.id),
 	      user
 	    )

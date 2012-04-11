@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+// Hide JS required warnings
+$('.etnsJsRequired').hide(0);
 /*
  * Show the foodForm
  */
@@ -41,7 +43,7 @@ $('#etnsButtonAddFood').click(function(){
       name: "Hey! What do you call this food?",
       date: {
         required: "When do you think this food will go bad?",
-        date: "That isn't a valid date format! Please use something like 02/02/2012!"
+        date: "That isn't a valid date format! Please follow the pattern of mm/dd/yyyy!"
       }
     }
   })

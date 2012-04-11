@@ -1,11 +1,8 @@
 @(foods: Seq[Food], user: User)
-    <ul class="etnsFoodList">
     @foods.map { food =>
       <li class="etnsFoodListItem">
         <h3 class="etnsFoodListItemName">@food.name</h3>
         <span class="etnsFoodListItemExpiry">Eat this by @food.expiry.format("MMMM dd, yyyy")</span>
-        <ul class="etnsFoodListItemLinks" id="@food.id">
-        </ul>
+        <ul class="etnsFoodListItemList" id="@food.id"></ul>
       </li>
     }
-    </ul>
