@@ -9,7 +9,7 @@
 
 } {
 
-  <h2>Manage your account</h2>
+  @views.html.layout.heading("Manage your account")
 
   @form(action = routes.Account.update()) {
     @inputText(
