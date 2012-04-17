@@ -1,4 +1,4 @@
-@(user: User, foodForm: Form[(String, java.util.Date)])
+@(user: User, foods: Seq[Food], foodForm: Form[(String, java.util.Date)])
 
 @mainLayout(pageTitle = "Eat This Now!", user: User) {
 @* skipNav *@
@@ -12,5 +12,5 @@
 
   @views.html.layout.heading("Eat this food!")
 
-  @views.html.foods.loadList()
+  @views.html.foods.loadList(foods)
 }

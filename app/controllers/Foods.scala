@@ -29,6 +29,7 @@ object Foods extends Controller with Secured {
       Ok(
         html.foods.index(
           user,
+          Food.findEdibleFoodFor(user.id),
           foodForm
         )
       )
