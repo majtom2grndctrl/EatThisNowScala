@@ -1,5 +1,6 @@
 @import "_grid.less";
 @import "_loading.less";
+@import "_layout.less";
 
 /*
 Table of Contents
@@ -194,15 +195,10 @@ dd {
 /* 7.) Content-related rules
 --------------------------------------------------------*/
 /*ul*/.etnsFoodList {
-  list-style: none;
-  margin: 10px 0 0 0;
-  padding: 0;
+  .etnsListBlock;
 }
 /*li*/.etnsFoodItem {
-  display: block;
-  margin: 0 0 5px 0;
-  padding: 5px 60px 0 0;
-  position: relative;
+  .etnsListBlockItem;
 }
 /*button*/.etnsFoodButtonMain {
   background: none;
@@ -232,4 +228,10 @@ dd {
 /*span*/.etnsFoodItemNom {
   font-size: 28em / 13;
   display: none;
+}
+/*ul*/.etnsFoodCommands {
+  .etnsListBlock
+}
+/*li*/.etnsFoodCommandsItem {
+  .etnsListBlockItem
 }

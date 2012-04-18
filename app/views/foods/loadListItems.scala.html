@@ -4,7 +4,11 @@
     <button class="etnsFoodButtonMain">
       <h3 class="etnsFoodItemName">@food.name</h3>
       <span class="etnsFoodItemExpiry">Eat this by @food.expiry.format("MMMM dd, yyyy")</span>
-      <ul class="etnsFoodCommands" id="@food.id-options"></ul>
     </button>
+    <ul class="etnsFoodCommands" id="@food.id-options">
+      <li class="etnsFoodCommandsItem">
+        <button class="etnsFoodCommandsButton">I ate this!</button>
+      </li>
+    </ul>
   </li>
 }
