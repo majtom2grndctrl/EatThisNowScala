@@ -90,6 +90,12 @@ trait Secured {
     Action(request => f(userEmail)(request))
   }
 
+  def AuthenticatedUser(f: User => Request[AnyContent] => Result) = IsAuthenticated { username => implicit request =>
+    User.findByEmail(username).map { user =>
+      f(user)(request)
+    }.getOrElse(onUnauthorized(request))
+  }
+
   def IsOwnerOf(food: Long)(f: => String => Request[AnyContent] => Result) = IsAuthenticated { userEmail: String => request =>
     if(Food.isOwner(food, User.findByEmail(userEmail).get.id)) {
       f(userEmail)(request)
