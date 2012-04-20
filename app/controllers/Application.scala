@@ -78,8 +78,6 @@ object Application extends Controller {
     )
   }
 */
-
-
 }
 
 trait Secured {

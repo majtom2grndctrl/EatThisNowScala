@@ -25,23 +25,23 @@ object Foods extends Controller with Secured {
   )
 */
 
-  def foodForm(implicit request: RequestHeader) = Form(
+  def foodForm(user: User) = Form(
     mapping(
       "id" -> ignored(NotAssigned: Pk[Long]),
       "name" -> nonEmptyText,
       "status" -> ignored("edible": String),
-      "owner" -> ignored(request.session.get("user.id").asInstanceOf[Pk[Long]]),
+      "owner" -> ignored(user.id),
       "expiry" -> date("MM/dd/yyyy")
     )(Food.apply)(Food.unapply)
   )
 
-  def index = IsAuthenticated { username => _ =>
+  def index = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
       Ok(
         html.foods.index(
           user,
           Food.findEdibleFoodFor(user.id),
-          foodForm
+          foodForm(user)
         )
       )
     }.getOrElse(Forbidden)
@@ -57,11 +57,11 @@ object Foods extends Controller with Secured {
     }.getOrElse(Forbidden)
   }
 
-  def createFood = IsAuthenticated { username => _ =>
+  def createFood = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
       Ok(
         html.foods.create(
-          foodForm,
+          foodForm(user),
           user
         )
       )
@@ -76,12 +76,11 @@ object Foods extends Controller with Secured {
 
   def saveFood = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>
-      foodForm.bindFromRequest.fold(
+      foodForm(user).bindFromRequest.fold(
         errors => BadRequest(html.foods.create(errors, user)),
-        Food.create(food)
-        Ok
-        Redirect(routes.Foods.index)
+        food => Food.create(food)
       )
+        Redirect(routes.Foods.index)
     }.getOrElse(Forbidden)
   }
 
