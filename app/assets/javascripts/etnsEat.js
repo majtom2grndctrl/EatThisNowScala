@@ -29,13 +29,15 @@ $('#etnsButtonAddFood').click(function(){
     });
 
     $(".etnsFoodEatenButton").click(function() {
-      alert($(this).attr("food-id"));
       var foodId = $(this).attr("food-id");
-      var liId = "#foodItem" + foodID;
+//      var liId = '#foodItem' + foodID;
+      alert(foodId);
+
+
       $.ajax ({
     	type: 'POST',
     	url: '/nom/' + foodId,
-    	success: $(liId).hide(250)
+    	success: $(this).hide(250)
       });
     });
 
