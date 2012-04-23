@@ -60,6 +60,12 @@ object Foods extends Controller with Secured {
     Redirect(routes.Foods.index)
   }
 
+  def markAsEatenAsync(foodId: Long) = IsOwnerOf(foodId) { _ => implicit request =>
+    Food.updateStatus(foodId, "eaten")
+    Ok
+    Redirect(routes.Foods.index)
+  }
+
   def saveFood = AuthenticatedUser { user => implicit request =>
     foodForm(user).bindFromRequest.fold(
       errors => BadRequest(html.foods.create(errors, user)),

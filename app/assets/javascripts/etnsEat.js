@@ -30,7 +30,14 @@ $('#etnsButtonAddFood').click(function(){
 
     $(".etnsFoodEatenButton").click(function() {
       alert($(this).attr("food-id"));
-    })
+      var foodId = $(this).attr("food-id");
+      var liId = "#foodItem" + foodID;
+      $.ajax ({
+    	type: 'POST',
+    	url: '/nom/' + foodId,
+    	success: $(liId).hide(250)
+      });
+    });
 
   });
 
