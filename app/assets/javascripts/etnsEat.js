@@ -27,6 +27,11 @@ $('#etnsButtonAddFood').click(function(){
       alert("The click event has fired.");
       $(this).children(".etnsFoodCommands").show(0);
     });
+
+    $(".etnsFoodEatenButton").click(function() {
+      alert($(this).attr("food-id"));
+    })
+
   });
 
 
