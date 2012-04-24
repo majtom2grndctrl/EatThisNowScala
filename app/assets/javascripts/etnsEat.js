@@ -16,28 +16,35 @@ $('#etnsButtonAddFood').click(function(){
 });
 
 // Load food asynchronously after page load
-  $('#etnsLoadFoodContainer').load('loadFood', function() {
-    $('#facebookG').hide(250);
+  $("#etnsLoadFoodContainer").load("loadFood", function() {
+    $("#facebookG").hide(250);
     $(this).delay(250).animate({
       "height": "toggle", "opacity": "toggle"
     }, 500);
 
-// Show food options when clicked
+    $(".etnsFoodCommands").css("display", "none");
+
+    // Show food options when clicked
     $(".etnsFoodButtonMain").click(function() {
-      alert("The click event has fired.");
-      $(this).children(".etnsFoodCommands").show(0);
+      var menuStatus;
+      if(menuStatus != "open") {
+        var menuStatus = "open";
+        $(this).next(".etnsFoodCommands").show(250);
+      } else if(menuStatus == "open") {
+    	var menuStatus = "closed";
+        $(this).next(".etnsFoodCommands").hide(250);
+      }
     });
 
     $(".etnsFoodEatenButton").click(function() {
       var foodId = $(this).attr("food-id");
-//      var liId = '#foodItem' + foodID;
-      alert(foodId);
-
+      var listItemId = "#foodItem" + foodId;
+      alert(listItemId);
 
       $.ajax ({
     	type: 'POST',
     	url: '/nom/' + foodId,
-    	success: $(this).hide(250)
+    	success: $(listItemId).hide(250)
       });
     });
 
@@ -68,7 +75,6 @@ $('#etnsButtonAddFood').click(function(){
 
 // Show or hide account menu on click
   $(".etnsHeaderAccountMenuTitle").click(function() {
-	    alert("The click event has fired.");
 	if (etnAccountMenuState == "hidden") {
       $(".etnsHeaderAccountMenuItem").css({"position":"static"});
       etnAccountMenuState = "shown";
