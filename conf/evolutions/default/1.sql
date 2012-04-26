@@ -5,8 +5,8 @@
 create table user (
   id                        bigint not null primary key auto_increment,
   email                     varchar(255) not null,
-  firstName                      varchar(255) not null,
-  lastName                       varchar(255) not null,
+  firstName                 varchar(255) not null,
+  lastName                  varchar(255) not null,
   password                  varchar(255) not null
 );
 
@@ -18,7 +18,7 @@ create table food (
   status					varchar(15),
   owner						bigint not null,
   expiry					date,
-  foreign key(owner)	references user(id) on delete cascade
+  foreign key(owner)        references user(id) on delete cascade
 );
 
 create sequence food_seq start with 1000;
