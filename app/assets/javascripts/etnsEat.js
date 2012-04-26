@@ -23,15 +23,15 @@ $('#etnsButtonAddFood').click(function(){
     }, 500);
 
     $(".etnsFoodCommands").css("display", "none");
+    var etnsFoodMenuState = "closed";
 
     // Show food options when clicked
     $(".etnsFoodButtonMain").click(function() {
-      var menuStatus;
-      if(menuStatus != "open") {
-        var menuStatus = "open";
+      if(etnsFoodMenuState != "open") {
+        var etnsFoodMenuState = "open";
         $(this).next(".etnsFoodCommands").show(250);
-      } else if(menuStatus == "open") {
-    	var menuStatus = "closed";
+      } else if(etnsFoodMenuState == "open") {
+    	var etnsFoodMenuState = "closed";
         $(this).next(".etnsFoodCommands").hide(250);
       }
     });
@@ -39,7 +39,6 @@ $('#etnsButtonAddFood').click(function(){
     $(".etnsFoodEatenButton").click(function() {
       var foodId = $(this).attr("food-id");
       var listItemId = "#foodItem" + foodId;
-      alert(listItemId);
 
       $.ajax ({
     	type: 'POST',
@@ -70,16 +69,19 @@ $('#etnsButtonAddFood').click(function(){
   });
 
 // Hide account menu on page load
-  $(".etnsHeaderAccountMenuItem").css({"position":"absolute","left":"-10000px"});
+  $(".etnsHeaderAccountMenuItem").css({"opacity": "0", "height": "0"});
   var etnAccountMenuState = "hidden";
 
 // Show or hide account menu on click
   $(".etnsHeaderAccountMenuTitle").click(function() {
 	if (etnAccountMenuState == "hidden") {
-      $(".etnsHeaderAccountMenuItem").css({"position":"static"});
+      $(".etnsHeaderAccountMenuItem").animate ({
+    	  opacity: 1,
+    	  height: '1.25em'
+      }, 125);
       etnAccountMenuState = "shown";
 	} else if (etnAccountMenuState == "shown") {
-      $(".etnsHeaderAccountMenuItem").css({"position":"absolute"});
+      $(".etnsHeaderAccountMenuItem").fadeOut(250);
       etnAccountMenuState = "hidden";
 	}
   });

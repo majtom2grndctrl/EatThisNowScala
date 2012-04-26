@@ -37,27 +37,21 @@ object Food {
 		}
 	}
 
-  	def create(food: Food): Food = {
-	  DB.withConnection { implicit connection =>
-	    val id: Long = food.id.getOrElse {
-	      SQL("select next value for food_seq").as(scalar[Long].single)
-	    }
-	  SQL(
-	      """
-			  insert into food values (
-	      {id}, {name}, {status}, {owner}, {expiry}
-			  )
-	      """
-	  ).on(
-	      'id -> id,
-	      'name -> food.name,
-	      'status -> food.status,
-	      'owner -> food.owner,
-	      'expiry -> food.expiry
-	  ).executeUpdate()
-	  
-	  food.copy(id = Id(id))
-	
+  	def create(food: Food) = {
+      DB.withConnection { implicit connection =>
+        SQL(
+          """
+            insert into food values (
+              (select next value for food_seq),
+              {name}, {status}, {owner}, {expiry}
+            )
+          """
+        ).on(
+          'name -> food.name,
+          'status -> food.status,
+          'owner -> food.owner,
+          'expiry -> food.expiry
+        ).executeUpdate()
 	  }
 	}
 

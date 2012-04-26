@@ -30,13 +30,15 @@ object InitialData {
 				User(NotAssigned, "wbuccicone@example.com", "Whitney", "Buccicone", "secret")
 			).foreach(User.create)
 
+//            User.create(User(NotAssigned, "dhiester@example.com", "Dan", "Hiester", "secret"))
 			Seq(
-			    Food(NotAssigned, "Mashed Potatoes", "edible", Id(1), dateHelper("05/21/2012")),
-			    Food(NotAssigned, "Fried Green Tomatoes", "edible", Id(1), dateHelper("04/21/2012")),
-				Food(NotAssigned, "Turkey", "edible", Id(2), dateHelper("12/20/2011")),
-				Food(NotAssigned, "Ham", "edible", Id(3), dateHelper("12/22/2011")),
-				Food(NotAssigned, "Pizza", "edible", Id(2), dateHelper("12/15/2011"))
+			    Food(NotAssigned, "Mashed Potatoes", "edible", Id(1000), dateHelper("05/21/2012")),
+			    Food(NotAssigned, "Fried Green Tomatoes", "edible", Id(1000), dateHelper("08/21/2012")),
+				Food(NotAssigned, "Turkey", "edible", Id(1001), dateHelper("10/20/2012")),
+				Food(NotAssigned, "Ham", "edible", Id(1002), dateHelper("9/22/2012")),
+				Food(NotAssigned, "Pizza", "edible", Id(1001), dateHelper("7/15/2012"))
 			).foreach(Food.create)
+
 		}
 
 	}

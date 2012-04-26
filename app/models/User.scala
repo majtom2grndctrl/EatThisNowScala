@@ -21,7 +21,7 @@ object User {
   }
 
   def findById(userId: Long): Option[User] = {
-    DB.withConnection { implicit csonnection =>
+    DB.withConnection { implicit connection =>
       SQL("select * from user where id = {userId}").on(
         'userId -> userId
       ).as(User.simple.singleOpt)
@@ -56,22 +56,21 @@ object User {
     }
   }
 
-  def create(user: User): User = {
+  def create(user: User) = {
     DB.withConnection { implicit connection =>
       SQL(
         """
           insert into user values (
-          {id},{email}, {firstName}, {lastName}, {password}
+            (select next value for user_seq),
+            {email}, {firstName}, {lastName}, {password}
           )
         """
       ).on(
-        'id -> user.id,
         'email -> user.email,
         'firstName -> user.firstName,
         'lastName -> user.lastName,
         'password -> user.password
       ).executeUpdate()      
-      user
     }
   }
 
