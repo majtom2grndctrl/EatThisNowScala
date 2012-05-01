@@ -26,7 +26,6 @@ object Account extends Controller with Secured {
 	  )
 	)
   )
-  
 
   def manage = IsAuthenticated { username => implicit request =>
     User.findByEmail(username).map { user =>

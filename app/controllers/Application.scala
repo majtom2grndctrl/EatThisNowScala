@@ -60,7 +60,7 @@ object Application extends Controller {
     accountForm.bindFromRequest.fold(
       formWithErrors => BadRequest(html.login(loginForm, formWithErrors)),
       {case (newEmail, newFirstName, newLastName, (password1, password2)) =>
-        val userCreate = User.create(
+        User.create(
           User(NotAssigned, newEmail, newFirstName, newLastName, password1)
         )
         Redirect(routes.Foods.index).withSession("email" -> newEmail)
